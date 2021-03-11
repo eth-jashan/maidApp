@@ -9,6 +9,20 @@ const HomeScreen = props => {
     );
 };
 
+HomeScreen.navigationOptions = navData => {
+    return{
+        headerTitle:'Find Maid',
+        headerLeft: () => (
+            <Button styles={{padding:10}}
+              onPress={() => {navData.navigation.toggleDrawer()}}
+              title="=="
+              color="#3c4a3b"
+            />
+            
+          )
+    }
+}
+
 const styles = StyleSheet.create({});
 
 export default HomeScreen;

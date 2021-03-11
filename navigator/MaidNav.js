@@ -44,14 +44,6 @@ const tabScreenConfig={
             }
         }   
     },
-    Filter:{
-        screen:FilterNavigator,
-        navigationOptions:{
-            tabBarIcon:(tabInfo)=>{
-                return(<Foundation name="filter" size={24} color={tabInfo.tintColor} />)
-            }
-        }
-    },
     Profile:{
         screen:ProfileNavigator,
         navigationOptions:{
@@ -61,24 +53,29 @@ const tabScreenConfig={
         }
     }
 }
-
-// const sideDrawer = createDrawerNavigator({
-//     Filters:{screen:FilterNavigator,
-//     navigationOptions:{
-//         drawerLabel:'Filter'
-//     }}
-// })
-
-
 const BottomTabNav = createMaterialBottomTabNavigator(tabScreenConfig,{
     activeColor:'#6ff76a',
     shifting:true,
     barStyle:{backgroundColor:'#3c4a3b'}
 })
 
+ const SideDrawer = createDrawerNavigator({
+    FindMaid:{screen:BottomTabNav,
+        navigationOptions:{
+            drawerLabel:'Find Maid'
+        }},
+     Filters:{screen:FilterNavigator,
+     navigationOptions:{
+         drawerLabel:'Filter'
+     }}
+ })
+
+
+
+
 const AppSwitch = createSwitchNavigator({
     Auth:AuthNavigator,
-    Main:BottomTabNav
+    Main:SideDrawer
 })
 
 export default createAppContainer(AppSwitch);
