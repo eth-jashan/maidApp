@@ -15,7 +15,7 @@ HomeScreen.navigationOptions = navData => {
         headerLeft: () => (
             <Button styles={{padding:10}}
               onPress={() => {navData.navigation.toggleDrawer()}}
-              title="=="
+              title="Menu"
               color="#3c4a3b"
             />
             
