@@ -11,4 +11,12 @@ const ProfileScreen = props => {
 
 const styles = StyleSheet.create({});
 
+ProfileScreen.navigationOptions = () => {
+    return{
+        header:()=>{
+            return false
+        }
+    }
+}
+
 export default ProfileScreen;

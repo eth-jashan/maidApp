@@ -1,9 +1,7 @@
 import React from 'react';
 import {View,StyleSheet,Text,Button} from 'react-native';
-import {HeaderButtons,Item} from 'react-navigation-header-buttons';
 
-
-const HomeScreen = props => {
+const MaidProfileScreen = props => {
     return(
         <View>
             <Text>HomeScreen</Text>
@@ -11,7 +9,7 @@ const HomeScreen = props => {
     );
 };
 
-HomeScreen.navigationOptions = () => {
+MaidProfileScreen.navigationOptions = () => {
     return{
         header:()=>{
             return false
@@ -19,6 +17,4 @@ HomeScreen.navigationOptions = () => {
     }
 }
 
-const styles = StyleSheet.create({});
-
-export default HomeScreen;
+export default MaidProfileScreen;

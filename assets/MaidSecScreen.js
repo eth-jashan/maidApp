@@ -5,7 +5,7 @@ import {View,StyleSheet,Text,Button, Dimensions,Switch,TouchableOpacity,Image,Im
 import {TextInput, Modal, Portal, Provider} from 'react-native-paper';
 
 
-const FilterScreen = props => {
+const MaidSecScreen = props => {
 
     const [visible, setVisible] = useState(false);
     const[name,setname] = useState();
@@ -90,4 +90,12 @@ const styles = StyleSheet.create({
     }
 });
 
-export default FilterScreen;
+MaidSecScreen.navigationOptions = () => {
+    return{
+        header:()=>{
+            return false
+        }
+    }
+}
+
+export default MaidSecScreen;

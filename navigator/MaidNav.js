@@ -2,21 +2,24 @@ import React from 'react';
 import {createAppContainer,createSwitchNavigator} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
-import FilterScreen from '../source/screens/FilterScreen';
+import MaidSecScreen from '../source/screens/MaidSecScreen';
 import HomeScreen from '../source/screens/HomeScreen';
 import ProfileScreen from '../source/screens/ProfileScreen';
+import MaidProfileScreen from '../source/screens/MaidProfileScreen';
 
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { Foundation } from '@expo/vector-icons'; 
+
 import AuthScreen from '../source/screens/AuthScreen';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 
+//icons
+import { MaterialIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 const defaultNavOptions = {
     headerStyle:{
-        backgroundColor:'#3c4a3b'
+        backgroundColor:'#e2703a'
     },
-    headerTintColor:'#63ff7b'
+    headerTintColor:'#ffffff'
 }
 
 const AuthNavigator = createStackNavigator({
@@ -27,13 +30,18 @@ const HomeNavigator = createStackNavigator({
     Home:HomeScreen
 },{defaultNavigationOptions:defaultNavOptions});
 
-const FilterNavigator = createStackNavigator({
-    Filter:FilterScreen
+const MaidSecNavigator = createStackNavigator({
+    MaidSec:MaidSecScreen
+},{defaultNavigationOptions:defaultNavOptions})
+
+const MaidProfileNavigator = createStackNavigator({
+    MaidProfile:MaidProfileScreen
 },{defaultNavigationOptions:defaultNavOptions})
 
 const ProfileNavigator = createStackNavigator({
     Profile:ProfileScreen
 },{defaultNavigationOptions:defaultNavOptions})
+
 
 const tabScreenConfig={
     Home:{
@@ -53,18 +61,45 @@ const tabScreenConfig={
         }
     }
 }
+
+const maidTabScreenConfig={
+    Work:{
+        screen:MaidSecNavigator,
+        navigationOptions:{
+            tabBarIcon:(tabInfo)=>{
+                
+                return(<MaterialCommunityIcons name="details" size={24} color={tabInfo.tintColor} />)
+            }
+        }   
+    },
+    Profile:{
+        screen:MaidProfileNavigator,
+        navigationOptions:{
+            tabBarIcon:(tabInfo)=>{
+                return(<MaterialCommunityIcons name="face-profile" size={24} color={tabInfo.tintColor} />)
+            }
+        }
+    }
+}
+
 const BottomTabNav = createMaterialBottomTabNavigator(tabScreenConfig,{
-    activeColor:'#6ff76a',
+    activeColor:'#e2703a',
     shifting:true,
-    barStyle:{backgroundColor:'#3c4a3b'}
+    barStyle:{backgroundColor:'black'}
 })
+
+const MaidBottomTabNav = createMaterialBottomTabNavigator(maidTabScreenConfig,{
+    activeColor:'#e2703a',
+    shifting:true,
+    barStyle:{backgroundColor:'black'}
+ })
 
  const SideDrawer = createDrawerNavigator({
     FindMaid:{screen:BottomTabNav,
         navigationOptions:{
             drawerLabel:'Home'
         }},
-     Filters:{screen:FilterNavigator,
+     MaidSec:{screen:MaidBottomTabNav,
      navigationOptions:{
          drawerLabel:'Maid Section'
      }}
@@ -73,8 +108,9 @@ const BottomTabNav = createMaterialBottomTabNavigator(tabScreenConfig,{
 
 
 
+
 const AppSwitch = createSwitchNavigator({
-    //Auth:AuthNavigator,
+    Auth:AuthNavigator,
     Main:SideDrawer
 })
 
