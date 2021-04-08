@@ -62,11 +62,11 @@ const BottomTabNav = createMaterialBottomTabNavigator(tabScreenConfig,{
  const SideDrawer = createDrawerNavigator({
     FindMaid:{screen:BottomTabNav,
         navigationOptions:{
-            drawerLabel:'Find Maid'
+            drawerLabel:'Home'
         }},
      Filters:{screen:FilterNavigator,
      navigationOptions:{
-         drawerLabel:'Filter'
+         drawerLabel:'Maid Section'
      }}
  })
 
@@ -74,7 +74,7 @@ const BottomTabNav = createMaterialBottomTabNavigator(tabScreenConfig,{
 
 
 const AppSwitch = createSwitchNavigator({
-    Auth:AuthNavigator,
+    //Auth:AuthNavigator,
     Main:SideDrawer
 })
 
