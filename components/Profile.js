@@ -137,7 +137,7 @@ const Profile = props => {
                 />
             </View>
             <View style={{padding:Dimensions.get('window').width*0.05}}>
-            <AntDesign name="clockcircle" size={30} color="red"  onPress={showPicker}/>
+            <AntDesign name="clockcircle" size={30} color="black"  onPress={showPicker}/>
                 <TimePicker
                 isVisible={Visible}
                 mode='time'
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     },
     buttonDisagree:{
         borderRadius:20,
-        backgroundColor:'#c90000',
+        backgroundColor:'black',
         width:Dimensions.get('window').width*0.40,
         margin:10,
         padding:10,
