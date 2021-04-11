@@ -110,7 +110,7 @@ const MaidBottomTabNav = createMaterialBottomTabNavigator(maidTabScreenConfig,{
 
 
 const AppSwitch = createSwitchNavigator({
-   // Auth:AuthNavigator,
+    Auth:AuthNavigator,
     Main:SideDrawer
 })
 
