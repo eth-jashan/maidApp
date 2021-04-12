@@ -1,5 +1,8 @@
+import Maid from '../../models/Maid';
+
 export const CREATE_USER = 'CREATE_USER';
 export const CREATE_MAID = 'CREATE_MAID';
+export const FETCH_MAID = 'FETCH_MAID';
 
 export const createUser = (name) => {
     return async(dispatch,getState) =>{
@@ -62,5 +65,27 @@ export const createMaid = (name,phone,price,from,till,work,location,address) =>{
             }
 
         })
+    }
+}
+
+export const fetchMaid = () => {
+    return async(dispatch,getState) => {
+        const userId = getState().auth.userId;
+        console.log(userId);
+      
+            const response = await fetch('https://housekeeper-4f6d8-default-rtdb.firebaseio.com/maid.json');
+            console.log(response);
+            
+            const resData = await response.json();
+            console.log(resData)
+            const loadedMaids = [];
+
+            for(const key in resData){
+                loadedMaids.push(new Maid(key,resData[key].ownerId,resData[key].name,resData[key].phone,
+                    resData[key].price,resData[key].from,resData[key].till,resData[key].work,resData[key].location,
+                    resData[key].address))
+            }
+            dispatch({type:FETCH_MAID,maids:loadedMaids.filter(maid => maid.ownerId === userId)})
+        
     }
 }

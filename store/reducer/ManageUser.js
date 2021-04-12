@@ -1,6 +1,6 @@
 import Maid from '../../models/Maid';
 import User from '../../models/User';
-import { CREATE_MAID, CREATE_USER } from '../action/ManageUser';
+import { CREATE_MAID, CREATE_USER, FETCH_MAID } from '../action/ManageUser';
 
 const initialState = {
     users:[],
@@ -17,7 +17,7 @@ export default (state = initialState,action) => {
             );
             return{...state,
             users:state.users.concat(newUser)};
-            
+
         case CREATE_MAID:
             const newMaid = new Maid(
                 action.maidCredentials.id,
@@ -33,6 +33,11 @@ export default (state = initialState,action) => {
             );
             return{...state,
             maids:state.maids.concat(newMaid)};
+        
+        case FETCH_MAID:
+            return{
+                maids:action.maids
+            }
     }
     return state;
 }
