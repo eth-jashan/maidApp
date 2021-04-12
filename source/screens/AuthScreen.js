@@ -35,8 +35,7 @@ const AuthScreen = props => {
         setLoad(true)
         let action,secondAction;
         if(isSignUp){
-            action=authActions.signup(email,password);
-            secondAction = manageActions.createUser(name);
+            action=authActions.signup(email,password); 
         }
         else{
             action=authActions.login(email,password);
@@ -45,7 +44,7 @@ const AuthScreen = props => {
         try{
             if(isSignUp){
                 await dispatch(action);
-                await dispatch(secondAction);
+                await dispatch(manageActions.createUser(name));
             }
             else{
                 await dispatch(action);

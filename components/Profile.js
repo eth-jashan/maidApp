@@ -13,8 +13,6 @@ import { Feather } from '@expo/vector-icons';
 //components 
 import RNPickerSelect from 'react-native-picker-select';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
-import GetLocation from 'react-native-get-location';
-
 
 
 const Profile = props => {
@@ -25,10 +23,11 @@ const Profile = props => {
     const[toTime,setToTime] = useState('');
     const[basePrice,setBasePrice] = useState('');
     const[work,setWork] = useState('');
-    const[location,setLocation] = useState(null)
     const[gloading,setGloading] = useState(false);
 
+    const[loc,setLoc] = useState('');
     const[workArray,setWorkArray] = useState([]);
+    const[isLocated,setIsLocated] = useState(false);
 
    
     const[clockVisible,setClockVisible] = useState(false);
@@ -37,15 +36,24 @@ const Profile = props => {
 
     const[load,setLoad] =  useState(false)
     
-    // const requestLocation = async() => {
-    //     setLocation(null);
-    //     setGloading(true);
-    //     GetLocation.getCurrentPosition({
-    //         enableHighAccuracy:true,
-    //         timeout:150000,
-    //     })
-    //     const glocation =  await
-    // }
+     function requestLocation() {
+         setGloading(true);
+         navigator.geolocation.getCurrentPosition(
+             position =>{
+                 const location = JSON.stringify(position);
+                 setLoc(location);
+                 setIsLocated(true);
+                 setGloading(false);
+                
+             },
+             error=>Alert.alert(error.message),setIsLocated(false),
+             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+         );
+         console.log(loc);
+         
+        
+     };
+
 
     const addWork = () => {
         if(workArray.includes(work)){
@@ -71,7 +79,7 @@ const Profile = props => {
         setName('');setPhone('');setAdress('');setTime('');setToTime('');
         setClockVisible(null);setVisible(null);setModalVisible(null);
         setLoad(false);setWorkArray([]);setBasePrice(null);
-        console.log(name,phone,address,time,toTime)
+        setLoc('');setIsLocated(false);
     };
 
     const validate = () => {
@@ -214,10 +222,11 @@ const Profile = props => {
                     <Text style={{fontWeight:'bold',fontSize:17,color:'#ffffff',textAlign:'center'}} >Select Work</Text>}
                     
             </TouchableOpacity>
-            <TouchableOpacity  style={styles.button}  onPress={()=>{}}>
-                {load?<ActivityIndicator color='#ffffff' size='small'/>:
-                    <Text style={{fontWeight:'bold',fontSize:17,color:'#ffffff',textAlign:'center'}} >Sync Location</Text>}
+            <TouchableOpacity  style={styles.button}  onPress={requestLocation}>
+                {gloading?<ActivityIndicator color='#ffffff' size='small'/>:
+                    <Text style={{fontWeight:'bold',fontSize:17,color:'#ffffff',textAlign:'center'}} >{!isLocated?'Sync Location':'Located'}</Text>}
             </TouchableOpacity>
+            <Text>{loc}</Text>
             <View style={{flexDirection:'row'}}>
             <TouchableOpacity  style={styles.buttonDisagree}  onPress={()=>{reset()}}>
                             <Text style={{fontWeight:'bold',fontSize:17,color:'#ffffff',textAlign:'center'}} >Reset</Text>
