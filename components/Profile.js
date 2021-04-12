@@ -14,6 +14,8 @@ import { Feather } from '@expo/vector-icons';
 import RNPickerSelect from 'react-native-picker-select';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 
+//api
+import LocationApi from '../api/LocationApi';
 
 const Profile = props => {
     const[name,setName] = useState('');
@@ -35,6 +37,20 @@ const Profile = props => {
     const[modalVisible,setModalVisible] = useState(false);
 
     const[load,setLoad] =  useState(false)
+
+    const revereGeoCodeResponse = async(latitude,longitude) =>{
+        try{
+            const response = await LocationApi.get(`latitude=${latitude}&longitude=${longitude}&localityLanguage=en`)
+            console.log(response);
+            const address = response.data.city+' ' + response.data.localityInfo.administrative[1].name+ ' ' + response.data.countryName +' '+ response.data.postcode;
+            console.log('*************************',address);
+            setAdress(address);
+        }
+        catch{
+            console.log('error!')
+        }
+    }
+
     
      function requestLocation() {
          setGloading(true);
@@ -50,6 +66,7 @@ const Profile = props => {
              { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
          );
          console.log(loc);
+         revereGeoCodeResponse(loc.latitude,loc.longitude)
          
         
      };
@@ -83,9 +100,14 @@ const Profile = props => {
     };
 
     const validate = () => {
-        if(name.trim().length > 0 && phone.trim().length > 0  && time.trim().length > 0 &&
-          toTime.trim().length > 0 && basePrice.trim().length > 0 && workArray.length!=0 ){
-            console.log('work')
+        if(loc.trim()==0){
+            Alert.alert('Sync Location','Please Obtain your Location',[{text:'Okay'}])
+        }
+       // console.log(name,phone,time,toTime,basePrice,workArray,address);
+        else if(name.trim().length > 0 && phone.trim().length > 0  && time.trim().length > 0 &&
+          toTime.trim().length > 0 && basePrice.trim().length > 0 && workArray.length!=0 
+          && address.trim().length>0){
+            console.log('dispatch')
             
         }
         else{
@@ -145,14 +167,6 @@ const Profile = props => {
                 onChangeText={text=>setPhone(text)}
                 theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
                 label='Phone No. 91+'
-                />
-                 <TextInput
-                mode='outlined'
-                style={styles.input}
-                value={address}
-                onChangeText={text=>setAdress(text)}
-                theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
-                label='Enter Address(Optional)'
                 />
                  <TextInput
                 mode='outlined'
@@ -226,7 +240,15 @@ const Profile = props => {
                 {gloading?<ActivityIndicator color='#ffffff' size='small'/>:
                     <Text style={{fontWeight:'bold',fontSize:17,color:'#ffffff',textAlign:'center'}} >{!isLocated?'Sync Location':'Located'}</Text>}
             </TouchableOpacity>
-            <Text>{loc}</Text>
+            <TextInput
+                mode='outlined'
+                style={styles.input}
+                value={address}
+                onChangeText={text=>setAdress(text)}
+                theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
+                label='Address'
+                />
+
             <View style={{flexDirection:'row'}}>
             <TouchableOpacity  style={styles.buttonDisagree}  onPress={()=>{reset()}}>
                             <Text style={{fontWeight:'bold',fontSize:17,color:'#ffffff',textAlign:'center'}} >Reset</Text>
