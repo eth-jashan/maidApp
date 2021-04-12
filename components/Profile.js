@@ -17,7 +17,14 @@ import { FlatList, ScrollView } from 'react-native-gesture-handler';
 //api
 import LocationApi from '../api/LocationApi';
 
+//actions
+import * as manageActions from '../store/action/ManageUser';
+import { useDispatch } from 'react-redux';
+
 const Profile = props => {
+
+    const dispatch = useDispatch();
+
     const[name,setName] = useState('');
     const[phone,setPhone] = useState('');
     const[address,setAdress] = useState('');
@@ -99,15 +106,20 @@ const Profile = props => {
         setLoc('');setIsLocated(false);
     };
 
-    const validate = () => {
+    const validate = async() => {
         if(loc.trim()==0){
             Alert.alert('Sync Location','Please Obtain your Location',[{text:'Okay'}])
         }
        // console.log(name,phone,time,toTime,basePrice,workArray,address);
         else if(name.trim().length > 0 && phone.trim().length > 0  && time.trim().length > 0 &&
           toTime.trim().length > 0 && basePrice.trim().length > 0 && workArray.length!=0 
-          && address.trim().length>0){
-            console.log('dispatch')
+          && address.trim().length>0)
+          { 
+            
+            await dispatch(manageActions.createMaid(name,phone,basePrice,time,toTime,workArray,loc,address));
+            console.log('dispatched')
+          
+            
             
         }
         else{
