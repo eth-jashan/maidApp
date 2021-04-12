@@ -43,7 +43,8 @@ const Profile = props => {
     const[Visible,setVisible] = useState(false);
     const[modalVisible,setModalVisible] = useState(false);
 
-    const[load,setLoad] =  useState(false)
+    const[load,setLoad] =  useState(false);
+    const[loader,setLoader] = useState(false);
 
     const revereGeoCodeResponse = async(latitude,longitude) =>{
         try{
@@ -115,10 +116,10 @@ const Profile = props => {
           toTime.trim().length > 0 && basePrice.trim().length > 0 && workArray.length!=0 
           && address.trim().length>0)
           { 
-            
+            setLoader(true);
             await dispatch(manageActions.createMaid(name,phone,basePrice,time,toTime,workArray,loc,address));
             console.log('dispatched')
-          
+            setLoader(false)
             
             
         }
@@ -267,7 +268,7 @@ const Profile = props => {
             </TouchableOpacity>
 
             <TouchableOpacity  style={styles.buttonAgree}  onPress={validate}>
-            <Text style={{fontWeight:'bold',fontSize:17,color:'#ffffff',textAlign:'center'}} >Submit</Text>
+            {loader?<ActivityIndicator color='#ffffff' size='small'/>:<Text style={{fontWeight:'bold',fontSize:17,color:'#ffffff',textAlign:'center'}} >Submit</Text>}
             </TouchableOpacity>
             </View>
 
