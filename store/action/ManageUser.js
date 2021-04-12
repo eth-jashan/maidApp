@@ -4,6 +4,7 @@ export const createUser = (name) => {
     return async(dispatch,getState) =>{
         const token = getState().auth.token;
         const userId = getState().auth.userId;
+        console.log(userId);
         const response = await fetch(`https://housekeeper-4f6d8-default-rtdb.firebaseio.com/user.json?auth=${token}`,{
             method:'POST',
             header:{

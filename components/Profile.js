@@ -13,7 +13,7 @@ import { Feather } from '@expo/vector-icons';
 //components 
 import RNPickerSelect from 'react-native-picker-select';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
-
+import GetLocation from 'react-native-get-location';
 
 
 
@@ -25,7 +25,11 @@ const Profile = props => {
     const[toTime,setToTime] = useState('');
     const[basePrice,setBasePrice] = useState('');
     const[work,setWork] = useState('');
+    const[location,setLocation] = useState(null)
+    const[gloading,setGloading] = useState(false);
+
     const[workArray,setWorkArray] = useState([]);
+
    
     const[clockVisible,setClockVisible] = useState(false);
     const[Visible,setVisible] = useState(false);
@@ -33,6 +37,15 @@ const Profile = props => {
 
     const[load,setLoad] =  useState(false)
     
+    // const requestLocation = async() => {
+    //     setLocation(null);
+    //     setGloading(true);
+    //     GetLocation.getCurrentPosition({
+    //         enableHighAccuracy:true,
+    //         timeout:150000,
+    //     })
+    //     const glocation =  await
+    // }
 
     const addWork = () => {
         if(workArray.includes(work)){
@@ -191,8 +204,8 @@ const Profile = props => {
             </View>
             <View style={{alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
    {/* ARRAY OF WORK */}
-                {workArray.map((kaam) => <View style={{borderWidth:1,marginHorizontal:5,padding:5,borderRadius:10}}>
-                    <Text key={kaam} style={{fontWeight:'bold',margin:2}}>{kaam}</Text>
+                {workArray.map((kaam) => <View key={workArray.indexOf(kaam)} style={{borderWidth:1,marginHorizontal:5,padding:5,borderRadius:10}}>
+                    <Text  style={{fontWeight:'bold',margin:2}}>{kaam}</Text>
                     </View>)}
                 {workArray.length!=0?<Feather style={{margin:5}} name="delete" size={23} color="red"  onPress={()=>{setWorkArray([])}}/>:null}
             </View>
