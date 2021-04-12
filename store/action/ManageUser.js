@@ -71,13 +71,10 @@ export const createMaid = (name,phone,price,from,till,work,location,address) =>{
 export const fetchMaid = () => {
     return async(dispatch,getState) => {
         const userId = getState().auth.userId;
-        console.log(userId);
       
             const response = await fetch('https://housekeeper-4f6d8-default-rtdb.firebaseio.com/maid.json');
-            console.log(response);
             
             const resData = await response.json();
-            console.log(resData)
             const loadedMaids = [];
 
             for(const key in resData){

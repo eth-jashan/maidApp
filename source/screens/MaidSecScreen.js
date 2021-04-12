@@ -23,6 +23,7 @@ const MaidSecScreen = props => {
 
      const maid = useSelector(state=>state.manage.maids);
      console.log('********',maid);
+     console.log('********',maid[0].name);
 
       useEffect(()=>{
           const willFocusSub = props.navigation.addListener('willFocus',loadMaid);
@@ -32,9 +33,9 @@ const MaidSecScreen = props => {
           }
      },[loadMaid])
 
-    //  useEffect(()=>{
-    //      loadMaid()
-    //  },[dispatch,loadMaid])
+      useEffect(()=>{
+          loadMaid()
+      },[dispatch,loadMaid])
 
 
     
@@ -55,8 +56,7 @@ const MaidSecScreen = props => {
 
      return(
          <View>
-             
-             <Text>{maid.address}</Text>
+             <Text>Welcome {maid[0].name}</Text>
          </View>
      )
      
