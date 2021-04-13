@@ -45,12 +45,14 @@ const AuthScreen = props => {
             if(isSignUp){
                 await dispatch(action);
                 await dispatch(manageActions.createUser(name));
+                props.navigation.navigate('Welcome')
             }
             else{
                 await dispatch(action);
+                props.navigation.navigate('Main')
             }
             
-            props.navigation.navigate('Main')
+            
             
             
         }catch(err){

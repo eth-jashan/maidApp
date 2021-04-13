@@ -119,7 +119,8 @@ const Profile = props => {
             setLoader(true);
             await dispatch(manageActions.createMaid(name,phone,basePrice,time,toTime,workArray,loc,address));
             console.log('dispatched')
-            setLoader(false)
+            setLoader(false);
+            //props.navigation.navigate('Home');
             
             
         }
