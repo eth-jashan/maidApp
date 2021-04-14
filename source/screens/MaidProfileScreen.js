@@ -12,6 +12,7 @@ import * as manageActions from '../../store/action/ManageUser';
 
 //icons
 import { FontAwesome } from '@expo/vector-icons'; 
+import { ScrollView } from 'react-native-gesture-handler';
 
 const MaidProfileScreen = props => {
     const[isLoading,setIsLoading] =useState(false);
@@ -68,9 +69,11 @@ const MaidProfileScreen = props => {
     }
 
     return(
-        <SafeAreaView>
+        <SafeAreaView style={{height:Dimensions.get('window').height, 
+        width:Dimensions.get('window').width}}>
+            <ScrollView>
             <View style={{padding:10}}>
-            <FontAwesome style={{alignSelf:'center'}} name="user" size={90} color="#e2703a" />
+            <FontAwesome style={{alignSelf:'center',marginVertical:10}} name="user" size={90} color="#e2703a" />
             </View>
              <View>
                 <TextInput
@@ -102,7 +105,7 @@ const MaidProfileScreen = props => {
                 />
                 <TextInput
                 disabled={true}
-                mode='flat'
+                mode='outlined'
                 style={styles.input}
                 value={maid[0].from}
                 theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
@@ -110,19 +113,21 @@ const MaidProfileScreen = props => {
                 />
                 <TextInput
                 disabled={true}
-                mode='flat'
+                mode='outlined'
                 style={styles.input}
                 value={maid[0].till}
                 theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
                 label='Available Till'
                 />
                 <TextInput
-                disabled={true}
-                mode='flat'
+                disabled={false}
+                mode='outlined'
                 style={styles.input}
                 value={maid[0].address}
                 theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
                 label='Address'
+                numberOfLines={1}
+                multiline={false}
                 /> 
                 {/* <View style={{marginLeft:39}}><Text style={{fontSize:15,fontWeight:'200'}}>Work:</Text></View> */}
                 <View style={{flexDirection:'row',alignSelf:'center'}}>
@@ -135,6 +140,7 @@ const MaidProfileScreen = props => {
                  
         
             </View>
+            </ScrollView>
         </SafeAreaView>
     );
 };
@@ -152,7 +158,7 @@ const styles= StyleSheet.create({
         width:Dimensions.get('window').width*0.85,
         margin:15,
         fontFamily:'bold',
-        height:Dimensions.get('window').height*0.056,
+        height:Dimensions.get('window').height*0.059,
         backgroundColor:'#ffffff',
         alignSelf:'center',
         position:'relative',
@@ -163,6 +169,17 @@ const styles= StyleSheet.create({
         flex:1,
         justifyContent:'center',
         alignItems:'center'
+    },
+    Addressinput:{
+        width:Dimensions.get('window').width*0.85,
+        margin:15,
+        fontFamily:'bold',
+        height:Dimensions.get('window').height*0.07,
+        backgroundColor:'#ffffff',
+        alignSelf:'center',
+        position:'relative',
+        borderRadius:10,
+        fontSize:14
     }
 })
 export default MaidProfileScreen;
