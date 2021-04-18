@@ -32,7 +32,7 @@ const transition = (
 
 const {width, height} = Dimensions.get('screen')
 
-const MaidList = () => {
+const MaidList = (props) => {
 
     const Item = ({children, style}) => {
 
@@ -50,7 +50,7 @@ const MaidList = () => {
     
     const TitleInfo = ({index, text, color}) => {
         return(<View style={{overflow:'hidden'}}>
-        <Text key={`title-${index}`} style={{fontSize:TITLE_SIZE, color:color, fontFamily:'bold',alignSelf:'center'}}>{text}</Text>
+        <Text key={`title-${index}`} style={{fontSize:TITLE_SIZE, color:color,alignSelf:'center'}}>{text}</Text>
         </View>)
     }
     
@@ -61,17 +61,17 @@ const MaidList = () => {
         <View style={{flexDirection:'row'}}>
             <View>
             <FontAwesome5 style={{alignSelf:'center'}} name="road" size={24} color={"#1ec0af"} />
-            <Text style={{fontFamily:'extra-light', color:"#1ec0af", alignSelf:'center'}}>Range</Text>
+            <Text style={{ color:"#1ec0af", alignSelf:'center'}}>Range</Text>
             </View>
-            <Text style={{fontSize:22, fontFamily:'light', color:color,alignSelf:'center', marginHorizontal:10}}>{data[index].singleCharge}</Text>
+            <Text style={{fontSize:22, color:color,alignSelf:'center', marginHorizontal:10}}>{data[index].singleCharge}</Text>
         </View>
 
         <View style={{flexDirection:'row'}}>
             <View>
             <FontAwesome5 style={{alignSelf:'center'}} name="horse-head" size={24} color={"#1ec0af"} />
-            <Text style={{fontFamily:'extra-light', color:"#1ec0af", alignSelf:'center'}}>Horse</Text>
+            <Text style={{ color:"#1ec0af", alignSelf:'center'}}>Horse</Text>
             </View>
-            <Text style={{fontSize:22, fontFamily:'light', color:color,alignSelf:'center',marginHorizontal:10}}>142.7 PS</Text>
+            <Text style={{fontSize:22, color:color,alignSelf:'center',marginHorizontal:10}}>142.7 PS</Text>
         </View>
         
         </View>
@@ -81,17 +81,17 @@ const MaidList = () => {
         <View style={{flexDirection:'row'}}>
             <View>
             <FontAwesome style={{alignSelf:'center'}} name="gears" size={24} color={"#1ec0af"} />
-            <Text style={{fontFamily:'extra-light', color:"#1ec0af", alignSelf:'center'}}>Range</Text>
+            <Text style={{ color:"#1ec0af", alignSelf:'center'}}>Range</Text>
             </View>
-            <Text style={{fontSize:22, fontFamily:'light', color:color,alignSelf:'center',marginHorizontal:10}}>353 Nm</Text>
+            <Text style={{fontSize:22, color:color,alignSelf:'center',marginHorizontal:10}}>353 Nm</Text>
         </View>
 
         <View style={{flexDirection:'row'}}>
         <View>
             <MaterialCommunityIcons style={{alignSelf:'center'}} name="speedometer" size={24} color={"#1ec0af"} />
-            <Text style={{fontFamily:'extra-light', color:"#1ec0af", alignSelf:'center'}}>Range</Text>
+            <Text style={{ color:"#1ec0af", alignSelf:'center'}}>Range</Text>
             </View>
-            <Text style={{fontSize:22, fontFamily:'light', color:color,alignSelf:'center',marginHorizontal:10}}>2.4 sec</Text>
+            <Text style={{fontSize:22, color:color,alignSelf:'center',marginHorizontal:10}}>2.4 sec</Text>
         </View>
 
         </View>
@@ -99,9 +99,9 @@ const MaidList = () => {
         <View style={{flexDirection:'row', alignSelf:'center'}}>
             <View>
             <Feather style={{alignSelf:'center'}} name="battery-charging" size={50} color={"#1ec0af"} />
-            <Text style={{fontFamily:'extra-light', color:"#1ec0af", alignSelf:'center',fontSize:20}}>Charge Time</Text>
+            <Text style={{ color:"#1ec0af", alignSelf:'center',fontSize:20}}>Charge Time</Text>
             </View>
-            <Text style={{fontSize:30, fontFamily:'light', color:color, alignSelf:'center'}}>4 hrs</Text>
+            <Text style={{fontSize:30, color:color, alignSelf:'center'}}>4 hrs</Text>
         </View>
 
         </StaggeringView>)

@@ -30,7 +30,7 @@ const MaidProfileScreen = props => {
      },[dispatch])
 
      const maid = useSelector(state=>state.manage.maids);
-    //  console.log(maid);
+      console.log(maid);
     //  console.log(maid[0].work);
      
 //      useEffect(()=>{

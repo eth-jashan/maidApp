@@ -1,10 +1,11 @@
 import Maid from '../../models/Maid';
 import User from '../../models/User';
-import { CREATE_MAID, CREATE_USER, FETCH_MAID } from '../action/ManageUser';
+import { CREATE_MAID, CREATE_USER, FETCH_ALL_MAID, FETCH_MAID } from '../action/ManageUser';
 
 const initialState = {
     users:[],
     maids:[],
+    allmaids:[]
 };
 
 export default (state = initialState,action) => {
@@ -37,6 +38,10 @@ export default (state = initialState,action) => {
         case FETCH_MAID:
             return{
                 maids:action.maids
+            }
+        case FETCH_ALL_MAID:
+            return{
+                allmaids:action.maids
             }
     }
     return state;
