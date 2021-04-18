@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 
 //actions
 import * as authActions from '../../store/action/Auth';
+import * as manageActions from '../../store/action/ManageUser';
 
 const AuthScreen = props => {
 
@@ -17,6 +18,9 @@ const AuthScreen = props => {
 
     const[password,setPassword] = useState();
     const[email,setEmail] = useState();
+    const[name,setName] = useState();
+
+
     const[isSignUp,setIsSignUp] =useState(false);
     const[error,setError] = useState();
     const[load,setLoad] = useState(false);
@@ -29,17 +33,26 @@ const AuthScreen = props => {
 
     const authHandler = async(email,password) => {
         setLoad(true)
-        let action;
+        let action,secondAction;
         if(isSignUp){
-            action=authActions.signup(email,password);
+            action=authActions.signup(email,password); 
         }
         else{
             action=authActions.login(email,password);
         }
         setError(null);
         try{
-            await dispatch(action);
-            props.navigation.navigate('Main')
+            if(isSignUp){
+                await dispatch(action);
+                await dispatch(manageActions.createUser(name));
+                props.navigation.navigate('Welcome')
+            }
+            else{
+                await dispatch(action);
+                props.navigation.navigate('Main')
+            }
+            
+            
             
             
         }catch(err){
@@ -49,9 +62,10 @@ const AuthScreen = props => {
     }
 
     const validate = (email,password) => {
-        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;console.log(email)
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;console.log(email);console.log(name);
         if(reg.test(email)===false){
             Alert.alert('Wrong Input','Please enter a valid email',[{text:'Okay'}])
+            
         }
         else{
             authHandler(email,password)
@@ -67,6 +81,15 @@ const AuthScreen = props => {
                 <Text style={styles.title}>House Keeper</Text>  
             </View>
             <View>
+            {isSignUp?<TextInput
+                mode='flat'
+                autoCompleteType='name'
+                style={styles.input}
+                value={name}
+                onChangeText={text=>setName(text)}
+                theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
+                label='Enter Name'
+            />:null}
             <TextInput
                 mode='flat'
                 autoCompleteType='email'

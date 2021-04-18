@@ -6,6 +6,7 @@ import MaidSecScreen from '../source/screens/MaidSecScreen';
 import HomeScreen from '../source/screens/HomeScreen';
 import ProfileScreen from '../source/screens/ProfileScreen';
 import MaidProfileScreen from '../source/screens/MaidProfileScreen';
+import WelcomeScreen from '../WelcomeScreen';
 
 
 import AuthScreen from '../source/screens/AuthScreen';
@@ -111,6 +112,7 @@ const MaidBottomTabNav = createMaterialBottomTabNavigator(maidTabScreenConfig,{
 
 const AppSwitch = createSwitchNavigator({
     Auth:AuthNavigator,
+    Welcome:WelcomeScreen,
     Main:SideDrawer
 })
 
