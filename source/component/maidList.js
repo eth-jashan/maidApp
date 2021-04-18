@@ -8,7 +8,7 @@ import { Directions, FlingGestureHandler, State } from 'react-native-gesture-han
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {Transition, Transitioning} from 'react-native-reanimated'
 
-import StaggeringView from '../component/stageringView'
+import StaggeringView from '../component/StaggeringView'
 
 import { FontAwesome5 } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';

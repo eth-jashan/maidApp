@@ -1,12 +1,13 @@
 import React from 'react';
 import {View,StyleSheet,Text,Button} from 'react-native';
 import {HeaderButtons,Item} from 'react-navigation-header-buttons';
+import MaidList from '../component/maidList';
 
 
 const HomeScreen = props => {
     return(
         <View>
-            <Text>HomeScreen</Text>
+            <MaidList/>
         </View>
     );
 };
