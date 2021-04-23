@@ -38,7 +38,7 @@ const HomeScreen = props => {
         loadMaid()
     },[dispatch,loadMaid])
 
-    if(maid.length === 0){
+    if(Array.isArray(maid) && maid.length == 0){
         return(
             <View>
                 <Text>No maids found withing your area</Text>

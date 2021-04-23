@@ -53,7 +53,7 @@ const MaidProfileScreen = props => {
         )
     }
 
-    if(!isLoading && maid.length === 0){
+    if(!isLoading && Array.isArray(maid) && maid.length == 0){
         return(<View style={styles.centered}>
                 <View >
                 <Text>You Haven't Registered As A Maid Yet</Text>

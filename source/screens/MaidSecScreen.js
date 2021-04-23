@@ -48,19 +48,26 @@ const MaidSecScreen = props => {
      }
     
 
-      if(!isLoading && maid.length === 0){
+      if(!isLoading && Array.isArray(maid) && maid.length == 0){
           return(
               <Profile/>
           )
       }
-
+      else if(!isLoading && Array.isArray(maid) && maid.length){
+          
      return(<SafeAreaView>
-         <View style={{padding:15}}>
-             <View style={styles.container}><Text style={styles.text}>Welcome Back <Text style={{color:'white'}}>{maid[0].name}</Text></Text></View>
-              <View><Text style={styles.text}>Your Work:</Text></View>
-         </View>
-         </SafeAreaView>
-     )
+        <View style={{padding:15}}>
+            <View style={styles.container}><Text style={styles.text}>Welcome Back <Text style={{color:'white'}}>{maid[0].name}</Text></Text></View>
+             <View><Text style={styles.text}>Your Work:</Text></View>
+        </View>
+        </SafeAreaView>
+    )
+      }
+
+      return(<View>
+          <Text>Error Occured</Text>
+      </View>)
+
      
 
 
