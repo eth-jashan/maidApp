@@ -3,9 +3,10 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {View,StyleSheet,Text,Dimensions,Alert,ActivityIndicator, SafeAreaView} from 'react-native';
+import {View,StyleSheet,Text,Dimensions,Alert,ActivityIndicator} from 'react-native';
 import {Button} from 'react-native-paper';
 import {TextInput} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context'
 
 //components
 import MaidList from '../component/maidList';
@@ -15,7 +16,7 @@ import * as manageActions from '../../store/action/ManageUser';
 
 //icons
 import { FontAwesome } from '@expo/vector-icons'; 
-import { ScrollView } from 'react-native-gesture-handler';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 
 
 const HomeScreen = props => {
@@ -48,9 +49,31 @@ const HomeScreen = props => {
     }
 
     return(
-        <View>
-            <MaidList/>
-        </View>
+     
+        <SafeAreaView>
+            <FlatList
+                data={maid}
+                key={(_,i)=>i.toString()}
+                renderItem={({item}) => {
+                    return(<View style={{width:Dimensions.get('window').width*0.9, backgroundColor:'white',borderRadius:10,alignSelf:'center',padding:8,marginVertical:10}}>
+                    <Text style={{fontWeight:'bold', fontSize:20, marginVertical:8,alignSelf:"center"}}>{item.name}</Text>
+                    <Text numberOfLines={1}>{item.address}</Text>
+                    <FlatList
+                        style={{ margin:12,alignSelf:"center"}}
+                        horizontal
+                        data={item.work}
+                        keyExtractor={(_,i)=>i.toString()}
+                        renderItem={({item}) =>{
+                            return<View style={{backgroundColor:'purple', padding:8, borderRadius:8, width:150,}}>
+                                <Text style={{color:'white',alignSelf:'center'}}>{item}</Text>
+                            </View>
+                        }}
+                    />
+                    <Text style={{fontWeight:'600', fontSize:24,alignSelf:"center"}}>Starting from <Text style={{fontWeight:'bold',fontSize:24}}>₹ {item.price}</Text> </Text>
+                    </View>)
+                }}
+            />
+        </SafeAreaView>
     );
 };
 
@@ -65,3 +88,4 @@ HomeScreen.navigationOptions = () => {
 const styles = StyleSheet.create({});
 
 export default HomeScreen;
+//alignSelf:"center"
