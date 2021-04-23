@@ -22,18 +22,15 @@ import { FlatList, ScrollView } from 'react-native-gesture-handler';
 const HomeScreen = props => {
 
     const dispatch = useDispatch();
-    const[workArray,setWorkArray] = useState([]);
+   
 
     const loadMaid = useCallback(async()=>{
             await dispatch(manageActions.fetchAllMaid())
-            if(maid.length !==0){
-                setWorkArray(maid[0].work)
-            }
             
      },[dispatch])
 
      const maid = useSelector(state=>state.manage.allmaids);
-      console.log(maid);
+     console.log(maid);
 
       useEffect(()=>{
         loadMaid()
