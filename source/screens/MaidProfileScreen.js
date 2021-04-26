@@ -28,23 +28,26 @@ const MaidProfileScreen = props => {
     const dispatch = useDispatch();
 
     const setValues = () => {
-        setName(maid[0].name);
-        setPhone(maid[0].phone);
-        setPrice(maid[0].price);
-        setFrom(maid[0].from);
-        setTill(maid[0].till);
-        setAddress(maid[0].address);
-        setWorkA(maid[0].work)
+        if(Array.isArray(maid) && name=='' && maid.length != 0){
+            setName(maid[0].name);
+            setPhone(maid[0].phone);
+            setPrice(maid[0].price);
+            setFrom(maid[0].from);
+            setTill(maid[0].till);
+            setAddress(maid[0].address);
+            setWorkA(maid[0].work)
+            console.log('setting values!')
+        }
+        console.log('not setting an values')
+
     }
 
 
     const loadMaid = useCallback(async()=>{
         setIsLoading(true);
             await dispatch(manageActions.fetchMaid())
-            if(Array.isArray(maid) && name=='' && maid.length != 0){
                 setValues();
-                console.log('setting values')
-            }
+                
            
             setIsLoading(false);
      },[dispatch])
