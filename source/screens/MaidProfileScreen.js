@@ -16,34 +16,59 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 const MaidProfileScreen = props => {
     const[isLoading,setIsLoading] =useState(false);
+    
+    const[name,setName] = useState('');
+    const[phone,setPhone] = useState('');
+    const[price,setPrice] = useState('');
+    const[from,setFrom] = useState('');
+    const[till,setTill] = useState('');
+    const[address,setAddress] = useState('');
+    const[workA,setWorkA] = useState([]);
+    
     const dispatch = useDispatch();
-    const[workArray,setWorkArray] = useState([]);
+
+    const setValues = () => {
+        setName(maid[0].name);
+        setPhone(maid[0].phone);
+        setPrice(maid[0].price);
+        setFrom(maid[0].from);
+        setTill(maid[0].till);
+        setAddress(maid[0].address);
+        setWorkA(maid[0].work)
+    }
+
 
     const loadMaid = useCallback(async()=>{
         setIsLoading(true);
             await dispatch(manageActions.fetchMaid())
-            if(maid.length !==0){
-                setWorkArray(maid[0].work)
+            if(Array.isArray(maid) && name=='' && maid.length != 0){
+                setValues();
+                console.log('setting values')
             }
-            
+           
             setIsLoading(false);
      },[dispatch])
 
      const maid = useSelector(state=>state.manage.maids);
-      console.log(maid);
-    //  console.log(maid[0].work);
+      //console.log(maid);
+    //console.log(maid[0].work);
      
-//      useEffect(()=>{
-//         const willFocusSub = props.navigation.addListener('willFocus',loadMaid);
 
-//         return () =>{
-//             willFocusSub.remove();
-//         }
-//    },[loadMaid])
 
     useEffect(()=>{
         loadMaid()
     },[dispatch,loadMaid])
+
+    useEffect(()=>{
+        const willFocusSub = props.navigation.addListener('willFocus',loadMaid);
+        if(Array.isArray(maid) && maid.length != 0){
+            setValues();
+        }
+
+        return () =>{
+            willFocusSub.remove();
+        }
+   },[loadMaid])
 
     if(isLoading){
         return(
@@ -79,7 +104,7 @@ const MaidProfileScreen = props => {
                 <TextInput
                 mode='outlined'
                 style={styles.input}
-                value={maid[0].name}
+                value={name}
                 disabled={true}
                 theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
                 label='Enter Name'
@@ -87,17 +112,16 @@ const MaidProfileScreen = props => {
                 <TextInput
                 mode='outlined'
                 style={styles.input}
-                value={maid[0].phone}
+                value={phone}
                 disabled={true}
                 keyboardType='phone-pad'
-                onChangeText={text=>setPhone(text)}
                 theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
                 label='Phone No. 91+'
                 />
                  <TextInput
                 mode='outlined'
                 style={styles.input}
-                value={'₹'+maid[0].price}
+                value={'₹'+price}
                 keyboardType='phone-pad'
                 disabled={true}
                 theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
@@ -107,7 +131,7 @@ const MaidProfileScreen = props => {
                 disabled={true}
                 mode='outlined'
                 style={styles.input}
-                value={maid[0].from}
+                value={from}
                 theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
                 label='Available From'
                 />
@@ -115,7 +139,7 @@ const MaidProfileScreen = props => {
                 disabled={true}
                 mode='outlined'
                 style={styles.input}
-                value={maid[0].till}
+                value={till}
                 theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
                 label='Available Till'
                 />
@@ -123,7 +147,7 @@ const MaidProfileScreen = props => {
                 disabled={false}
                 mode='outlined'
                 style={styles.input}
-                value={maid[0].address}
+                value={address}
                 theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
                 label='Address'
                 numberOfLines={1}
@@ -132,7 +156,7 @@ const MaidProfileScreen = props => {
                 {/* <View style={{marginLeft:39}}><Text style={{fontSize:15,fontWeight:'200'}}>Work:</Text></View> */}
                 <View style={{flexDirection:'row',alignSelf:'center'}}>
                     
-               {workArray.map((kaam) => <View key={workArray.indexOf(kaam)} style={{borderWidth:1,marginHorizontal:5,padding:5,borderRadius:10}}>
+               {workA.map((kaam) => <View key={workA.indexOf(kaam)} style={{borderWidth:1,marginHorizontal:5,padding:5,borderRadius:10}}>
                     <Text  style={{fontWeight:'bold',margin:2}}>{kaam}</Text>
                     </View>)} 
                 </View>

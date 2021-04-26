@@ -36,6 +36,14 @@ const HomeScreen = props => {
         loadMaid()
     },[dispatch,loadMaid])
 
+    useEffect(()=>{
+        const willFocusSub = props.navigation.addListener('willFocus',loadMaid);
+
+        return () =>{
+            willFocusSub.remove();
+        }
+   },[loadMaid])
+
     if(Array.isArray(maid) && maid.length == 0){
         return(
             <View>

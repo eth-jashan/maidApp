@@ -25,13 +25,14 @@ const MaidSecScreen = props => {
      const maid = useSelector(state=>state.manage.maids);
      
 
-    //   useEffect(()=>{
-    //       const willFocusSub = props.navigation.addListener('willFocus',loadMaid);
 
-    //       return () =>{
-    //           willFocusSub.remove();
-    //       }
-    //  },[loadMaid])
+    useEffect(()=>{
+        const willFocusSub = props.navigation.addListener('willFocus',loadMaid);
+
+        return () =>{
+            willFocusSub.remove();
+        }
+   },[loadMaid])
 
       useEffect(()=>{
           loadMaid()
