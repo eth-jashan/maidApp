@@ -28,7 +28,7 @@ const MaidProfileScreen = props => {
     const dispatch = useDispatch();
 
     const setValues = () => {
-        if(Array.isArray(maid) && name=='' && maid.length != 0){
+        if(name===''&&phone===''){
             setName(maid[0].name);
             setPhone(maid[0].phone);
             setPrice(maid[0].price);
@@ -64,9 +64,9 @@ const MaidProfileScreen = props => {
 
     useEffect(()=>{
         const willFocusSub = props.navigation.addListener('willFocus',loadMaid);
-        if(Array.isArray(maid) && maid.length != 0){
-            setValues();
-        }
+        // if(Array.isArray(maid) && maid.length != 0){
+        //     setValues();
+        // }
 
         return () =>{
             willFocusSub.remove();
