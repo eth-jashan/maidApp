@@ -66,6 +66,7 @@ const HomeScreen = props => {
                     <FlatList
                         style={{ margin:12,alignSelf:"center"}}
                         horizontal
+                        showsHorizontalScrollIndicator={false}
                         data={item.work}
                         keyExtractor={(_,i)=>i.toString()}
                         renderItem={({item}) =>{
