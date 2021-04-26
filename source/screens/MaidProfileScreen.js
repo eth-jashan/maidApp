@@ -108,8 +108,12 @@ const MaidProfileScreen = props => {
             <ScrollView>
             <View style={{padding:10}}>
             <FontAwesome style={{alignSelf:'center',marginVertical:10}} name="user" size={90} color="#e2703a" />
+            <Button color='orange' compact={true} mode="contained" onPress={loadMaid}>
+           Refresh
+           </Button>
             </View>
              <View>
+                
                 <TextInput
                 mode='outlined'
                 style={styles.input}
