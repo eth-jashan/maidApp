@@ -135,9 +135,6 @@ const Profile = props => {
             await dispatch(manageActions.createMaid(name,phone,basePrice,time,toTime,workArray,loc,address));
             console.log('dispatched')
             setLoader(false);
-            //props.navigation.navigate('Home');
-            
-            
         }
         else{
             Alert.alert('Invalid Form Data','Please Enter all The required Data',[{text:'Okay'}])

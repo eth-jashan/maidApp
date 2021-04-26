@@ -25,10 +25,13 @@ const MaidProfileScreen = props => {
     const[address,setAddress] = useState('');
     const[workA,setWorkA] = useState([]);
     
+    
     const dispatch = useDispatch();
+    const maid = useSelector(state=>state.manage.maids);
+
 
     const setValues = () => {
-        if(name===''&&phone===''){
+        if(Array.isArray(maid) && maid.length != 0){
             setName(maid[0].name);
             setPhone(maid[0].phone);
             setPrice(maid[0].price);
@@ -37,10 +40,16 @@ const MaidProfileScreen = props => {
             setAddress(maid[0].address);
             setWorkA(maid[0].work)
             console.log('setting values!')
+            
         }
-        console.log('not setting an values')
+        else{
+            console.log('not setting an values')
+            
+        }
+        
 
     }
+   
 
 
     const loadMaid = useCallback(async()=>{
@@ -52,21 +61,18 @@ const MaidProfileScreen = props => {
             setIsLoading(false);
      },[dispatch])
 
-     const maid = useSelector(state=>state.manage.maids);
+    
       //console.log(maid);
     //console.log(maid[0].work);
      
 
 
     useEffect(()=>{
-        loadMaid()
+        loadMaid();
     },[dispatch,loadMaid])
 
     useEffect(()=>{
         const willFocusSub = props.navigation.addListener('willFocus',loadMaid);
-        // if(Array.isArray(maid) && maid.length != 0){
-        //     setValues();
-        // }
 
         return () =>{
             willFocusSub.remove();
