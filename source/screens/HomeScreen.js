@@ -52,35 +52,45 @@ const HomeScreen = props => {
             
         )
     }
-
-    return(
+    if(Array.isArray(maid) && maid.length != 0){
+        return(
      
-        <SafeAreaView>
-            <FlatList
-                data={maid}
-                key={(_,i)=>i.toString()}
-                renderItem={({item}) => {
-                    return(<View style={{width:Dimensions.get('window').width*0.9, backgroundColor:'white',borderRadius:10,alignSelf:'center',padding:8,marginVertical:10}}>
-                    <Text style={{fontWeight:'bold', fontSize:20, marginVertical:8,alignSelf:"center"}}>{item.name}</Text>
-                    <Text numberOfLines={1}>{item.address}</Text>
-                    <FlatList
-                        style={{ margin:12,alignSelf:"center"}}
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={item.work}
-                        keyExtractor={(_,i)=>i.toString()}
-                        renderItem={({item}) =>{
-                            return<View style={{backgroundColor:'purple', padding:8, borderRadius:8, width:150,}}>
-                                <Text style={{color:'white',alignSelf:'center'}}>{item}</Text>
-                            </View>
-                        }}
-                    />
-                    <Text style={{fontWeight:'600', fontSize:24,alignSelf:"center"}}>Starting from <Text style={{fontWeight:'bold',fontSize:24}}>₹ {item.price}</Text> </Text>
-                    </View>)
-                }}
-            />
-        </SafeAreaView>
-    );
+            <SafeAreaView>
+                <FlatList
+                    data={maid}
+                    key={(_,i)=>i.toString()}
+                    renderItem={({item}) => {
+                        return(<View style={{width:Dimensions.get('window').width*0.9, backgroundColor:'white',borderRadius:10,alignSelf:'center',padding:8,marginVertical:10}}>
+                        <Text style={{fontWeight:'bold', fontSize:20, marginVertical:8,alignSelf:"center"}}>{item.name}</Text>
+                        <Text numberOfLines={1}>{item.address}</Text>
+                        <FlatList
+                            style={{ margin:12,alignSelf:"center"}}
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={item.work}
+                            keyExtractor={(_,i)=>i.toString()}
+                            renderItem={({item}) =>{
+                                return<View style={{backgroundColor:'purple', padding:8, borderRadius:8, width:150,}}>
+                                    <Text style={{color:'white',alignSelf:'center'}}>{item}</Text>
+                                </View>
+                            }}
+                        />
+                        <Text style={{fontWeight:'600', fontSize:24,alignSelf:"center"}}>Starting from <Text style={{fontWeight:'bold',fontSize:24}}>₹ {item.price}</Text> </Text>
+                        </View>)
+                    }}
+                />
+            </SafeAreaView>
+        );
+    }
+    else{
+        return(
+            <View style={styles.centered}>
+                <ActivityIndicator size='large' color='#e2703a'/>
+            </View>
+        )
+    }
+
+
 };
 
 HomeScreen.navigationOptions = () => {
@@ -91,7 +101,13 @@ HomeScreen.navigationOptions = () => {
     }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    centered:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+    }
+});
 
 export default HomeScreen;
 //alignSelf:"center"

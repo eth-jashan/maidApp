@@ -98,12 +98,13 @@ const MaidBottomTabNav = createMaterialBottomTabNavigator(maidTabScreenConfig,{
  const SideDrawer = createDrawerNavigator({
     FindMaid:{screen:BottomTabNav,
         navigationOptions:{
-            drawerLabel:'Home'
+            drawerLabel:'Book Maid'
         }},
      MaidSec:{screen:MaidBottomTabNav,
      navigationOptions:{
          drawerLabel:'Maid Section'
      }}
+
  })
 
 
