@@ -3,13 +3,14 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {View,StyleSheet,Text,Dimensions,Alert,ActivityIndicator} from 'react-native';
-import {Button} from 'react-native-paper';
+import {View,StyleSheet,Text,Dimensions,Alert,ActivityIndicator, Modal} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context'
+import {Button} from 'react-native-paper'
 
 //components
 import MaidList from '../component/maidList';
+import Hire from '../../components/Hire';
 
 //actions
 import * as manageActions from '../../store/action/ManageUser';
@@ -22,6 +23,9 @@ import { FlatList, ScrollView } from 'react-native-gesture-handler';
 const HomeScreen = props => {
 
     const dispatch = useDispatch();
+
+    const[modalVisible,setModalVisible] = useState(false);
+    const[maidData,setMaidData] = useState();
    
 
     const loadMaid = useCallback(async()=>{
@@ -76,9 +80,17 @@ const HomeScreen = props => {
                             }}
                         />
                         <Text style={{fontWeight:'600', fontSize:24,alignSelf:"center"}}>Starting from <Text style={{fontWeight:'bold',fontSize:24}}>₹ {item.price}</Text> </Text>
+                        <Button color="#e2703a" onPress={()=>{setModalVisible(true);setMaidData(item);}}>Hire</Button>
                         </View>)
                     }}
                 />
+                <Modal animationType='slide' transparent={false} visible={modalVisible}>
+                    <View>
+                    <Hire maidData = {maidData}/>
+                    <Button mode='contained' color="#e2703a" onPress={()=>{setModalVisible(false)}}>Cancel</Button>
+                    </View>
+                    
+                </Modal>
             </SafeAreaView>
         );
     }
