@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import {View,StyleSheet,Button,Text, Dimensions, SafeAreaView,FlatList} from 'react-native';
+import {View,StyleSheet,Button,Text, Dimensions, SafeAreaView,FlatList,TouchableOpacity} from 'react-native';
 import { ScrollView} from 'react-native-gesture-handler';
 import { TextInput } from 'react-native-paper';
 
@@ -12,8 +12,10 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Feather } from '@expo/vector-icons'; 
+import { useCallback } from 'react';
 
 const Hire = (props) => {
+    const { chipKey, value, chipPressed, sel } = props;
     const[name,setName] = useState('');
     const[phone,setPhone] = useState('');
     const[time,setTime] = useState('');
@@ -22,6 +24,9 @@ const Hire = (props) => {
     const[clockVisible,setClockVisible] = useState(false);
     const[Visible,setVisible] = useState(false);
     const[chipSelect,setChipSelect] = useState([]);
+    const[Styles,setStyle] = useState(['#cccccc','#cccccc','#cccccc']);
+    const[chipId,setChipId] = useState([]);
+    const[chipWork,setChipWork] = useState([]); 
 
     const[load,setLoad] =  useState(false);
     const[loader,setLoader] = useState(false);
@@ -29,8 +34,20 @@ const Hire = (props) => {
     //  const {workArray} = props;
     console.log(props.workArray)
 
-    const chipCheck = () => {
-        
+    
+    const chipCheck =(index,kaam) => {
+        if(chipId.includes(index)){
+            var i = chipId.indexOf(index);
+            chipId.splice(i,1);
+            chipWork.splice(i,1)
+            Styles.splice(i,1,'#cccccc')
+            
+        }
+        else{
+            chipId.push(index)
+            chipWork.push(kaam)
+            Styles.splice(index,1,'#e2703a')
+        }
     }
 
     const showTimePicker = () =>{
@@ -86,7 +103,11 @@ const Hire = (props) => {
                 <View style={{flexDirection:'row'}}>
                 {props.maidData.work.map((kaam,index)=>       
                     <View style={{margin:1}}>
-                    <Chip  icon='tick' textStyle={{ color:'white', fontSize: 15 }} style={{ backgroundColor:chipSelect === index?'#e2703a':'#cccccc' }}  onPress={() =>{setChipSelect(index);console.log(chipSelect)}}>{kaam}</Chip>
+                    {/* <TouchableOpacity  onPress={()=>{chipCheck(index);console.log(chipId);console.log(Styles)}}>
+                        <View style={{height:30,width:100,borderRadius:10,borderColor:'black',borderWidth:1,backgroundColor:Styles[index]}}><Text style={{alignSelf:'center'}}>{kaam}</Text></View>
+                    </TouchableOpacity> */}
+                    {/* <Chip  icon='broom' textStyle={{ color:'white', fontSize: 15 }} style={{ backgroundColor:Styles[index] }}  onPress={() =>{chipCheck(index);console.log(chipId);console.log(Styles)}}>{kaam}</Chip> */}
+                    <Chip  icon='broom' textStyle={{ color:'white', fontSize: 15 }} style={{ backgroundColor:Styles[index] }}  onPress={() =>{chipCheck(index,kaam);console.log(chipId);console.log(Styles);console.log(chipWork)}}>{kaam}</Chip>
                     
                     </View>)}
                 </View>
@@ -94,7 +115,7 @@ const Hire = (props) => {
 
                 </View>
                 
-                            {/* clock 1 */}
+                {/* clock 1 */}
             <View style={{flexDirection:'row'}} >
             <View >
             <TextInput
