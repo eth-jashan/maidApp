@@ -27,6 +27,7 @@ const Hire = (props) => {
     const[Styles,setStyle] = useState(['#cccccc','#cccccc','#cccccc']);
     const[chipId,setChipId] = useState([]);
     const[chipWork,setChipWork] = useState([]); 
+    const[chipBool,setChipBool] = useState([false,false,false]);
 
     const[load,setLoad] =  useState(false);
     const[loader,setLoader] = useState(false);
@@ -41,12 +42,15 @@ const Hire = (props) => {
             chipId.splice(i,1);
             chipWork.splice(i,1)
             Styles.splice(i,1,'#cccccc')
+            chipBool.splice(i,1,false)
+
             
         }
         else{
             chipId.push(index)
             chipWork.push(kaam)
             Styles.splice(index,1,'#e2703a')
+            chipBool.splice(index,1,true)
         }
     }
 
@@ -107,7 +111,10 @@ const Hire = (props) => {
                         <View style={{height:30,width:100,borderRadius:10,borderColor:'black',borderWidth:1,backgroundColor:Styles[index]}}><Text style={{alignSelf:'center'}}>{kaam}</Text></View>
                     </TouchableOpacity> */}
                     {/* <Chip  icon='broom' textStyle={{ color:'white', fontSize: 15 }} style={{ backgroundColor:Styles[index] }}  onPress={() =>{chipCheck(index);console.log(chipId);console.log(Styles)}}>{kaam}</Chip> */}
-                    <Chip  icon='broom' textStyle={{ color:'white', fontSize: 15 }} style={{ backgroundColor:Styles[index] }}  onPress={() =>{chipCheck(index,kaam);console.log(chipId);console.log(Styles);console.log(chipWork)}}>{kaam}</Chip>
+                    <Chip  icon='broom' textStyle={{ color:'white', fontSize: 15 }} 
+                    style={{ backgroundColor:Styles[index] }}  
+                    onPress={() =>{chipCheck(index,kaam);console.log(chipId);
+                    console.log(Styles);console.log(chipWork);console.log(Styles[index]);}}>{kaam}</Chip>
                     
                     </View>)}
                 </View>
