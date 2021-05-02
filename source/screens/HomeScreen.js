@@ -87,7 +87,7 @@ const HomeScreen = props => {
                 <Modal animationType='slide' transparent={false} visible={modalVisible}>
                     <View>
                     <Hire maidData = {maidData}/>
-                    <Button mode='contained' color="#e2703a" onPress={()=>{setModalVisible(false)}}>Cancel</Button>
+                    <Button mode='contained' color="#dc143c" onPress={()=>{setModalVisible(false)}}>Cancel</Button>
                     </View>
                     
                 </Modal>

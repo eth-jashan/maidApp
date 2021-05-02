@@ -175,7 +175,7 @@ const Profile = props => {
             <ScrollView keyboardShouldPersistTaps={true}>
             <View style={{width:Dimensions.get('window').width, alignSelf:'center'} }>
             <View style={{margin:10,justifyContent:'center',alignItems:'center'}}>
-            <Text style={{margin:30,color:'#e2703a',fontSize:25,fontWeight:'bold'}} >Maid Registration</Text>
+            <Text style={{margin:30,color:'#e2703a',fontSize:25,fontWeight:'bold',textDecorationLine:'underline'}} >Maid Registration</Text>
             <View>
                 <TextInput
                 mode='outlined'
