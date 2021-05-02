@@ -28,6 +28,7 @@ const Hire = (props) => {
     const[chipId,setChipId] = useState([]);
     const[chipWork,setChipWork] = useState([]); 
     const[chipBool,setChipBool] = useState([false,false,false]);
+    const[done,setDone] = useState(false);
 
     const[load,setLoad] =  useState(false);
     const[loader,setLoader] = useState(false);
@@ -52,6 +53,7 @@ const Hire = (props) => {
             Styles.splice(index,1,'#e2703a')
             chipBool.splice(index,1,true)
         }
+        setDone(done=>!done);
     }
 
     const showTimePicker = () =>{
