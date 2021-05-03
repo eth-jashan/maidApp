@@ -18,6 +18,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons'; 
 import { useCallback } from 'react';
 
+//actions
+import * as workAction from '../store/action/ManageWork';
+import { useDispatch } from 'react-redux';
+
+
 const Hire = (props) => {
     const[name,setName] = useState('');
     const[phone,setPhone] = useState('');
@@ -35,13 +40,15 @@ const Hire = (props) => {
     const[Styles,setStyle] = useState(['#cccccc','#cccccc','#cccccc']);
     const[chipId,setChipId] = useState([]);
     const[chipBool,setChipBool] = useState([false,false,false]);
-    const[done,setDone] = useState(false);
+    const[done,setDone] = useState(0);
 
     const[isLocated,setIsLocated] = useState(false);
 
     const[load,setLoad] =  useState(false);
     const[loader,setLoader] = useState(false);
     const[gloading,setGloading] = useState(false);
+
+    const dispatch = useDispatch();
 
     
 
@@ -51,27 +58,29 @@ const Hire = (props) => {
     const reset = () => {
         setName('');setAdress('');setPhone('');setTime('');setToTime('');setBasePrice('');setIsLocated(false);
         setStyle(['#cccccc','#cccccc','#cccccc']);setChipId([]);setChipWork([]);
-        setChipBool([false,false,false]);setDone(false);setLoader(false);setLoc('');setGloading(false);
+        setChipBool([false,false,false]);setDone(0);setLoader(false);setLoc('');setGloading(false);
         setClockVisible(false);setVisible(false);setClockVisible(false);setMaidId('');
     }
 
     const validate = () => {
+        setLoader(true);
         if(loc.trim()==0){
             Alert.alert('Sync Location','Please Obtain your Location',[{text:'Okay'}])
         }
         else if(name.trim().length>0 && phone.trim().length>0 && time.trim().length > 0 &&
         toTime.trim().length > 0 && address.trim().length>0 &&chipWork.length!=0){
-            setLoader(true);
+            
             setMaidId(props.maidData.id)
-            //dispatch with 'accept/decline/onProcess'
-            setLoader(false);
+            dispatch(workAction.hireMaid(maidId,name,phone,time,toTime,address,basePrice,chipWork,loc,"nego"))
+            
             console.log('dispatched')
-            console.log(maidId,name,phone,time,toTime,address,basePrice,chipWork,loc,"onGoing");
-
+            //console.log(maidId,name,phone,time,toTime,address,basePrice,chipWork,loc,"nego");
+            
         }
         else{
             Alert.alert('Invalid Form Data','Please Enter all The required Data',[{text:'Okay'}])
         }
+        setLoader(false);
     }
 
     
@@ -81,17 +90,15 @@ const Hire = (props) => {
             chipId.splice(i,1);
             chipWork.splice(i,1)
             Styles.splice(i,1,'#cccccc')
-            chipBool.splice(i,1,false)
 
             
         }
         else{
-            chipId.push(index)
-            chipWork.push(kaam)
-            Styles.splice(index,1,'#e2703a')
-            chipBool.splice(index,1,true)
+            chipId.push(index);
+            chipWork.push(kaam);;
+            Styles.splice(index,1,'#e2703a');
         }
-        setDone(done=>!done);
+        setDone(done+1);
     }
 
     const showTimePicker = () =>{
@@ -203,10 +210,6 @@ const Hire = (props) => {
                 <View style={{flexDirection:'row'}}>
                 {props.maidData.work.map((kaam,index)=>       
                     <View style={{margin:1}}>
-                    {/* <TouchableOpacity  onPress={()=>{chipCheck(index);console.log(chipId);console.log(Styles)}}>
-                        <View style={{height:30,width:100,borderRadius:10,borderColor:'black',borderWidth:1,backgroundColor:Styles[index]}}><Text style={{alignSelf:'center'}}>{kaam}</Text></View>
-                    </TouchableOpacity> */}
-                    {/* <Chip  icon='broom' textStyle={{ color:'white', fontSize: 15 }} style={{ backgroundColor:Styles[index] }}  onPress={() =>{chipCheck(index);console.log(chipId);console.log(Styles)}}>{kaam}</Chip> */}
                     <Chip  icon='broom' textStyle={{ color:'white', fontSize: 15 }} 
                     style={{ backgroundColor:Styles[index] }}  
                     onPress={() =>{chipCheck(index,kaam);console.log(chipId);

@@ -11,10 +11,12 @@ import {Provider} from 'react-redux';
 //reducers
 import authReducer from './store/reducer/Auth';
 import manageUserReducer from './store/reducer/ManageUser';
+import manageWorkReducer from './store/reducer/ManageWork';
 
 const rootReducer = combineReducers({
   auth:authReducer,
-  manage:manageUserReducer
+  manage:manageUserReducer,
+  work:manageWorkReducer
 });
 
 const store =createStore(rootReducer,applyMiddleware(ReduxThunk));
