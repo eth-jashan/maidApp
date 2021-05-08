@@ -7,6 +7,7 @@ import HomeScreen from '../source/screens/HomeScreen';
 import ProfileScreen from '../source/screens/ProfileScreen';
 import MaidProfileScreen from '../source/screens/MaidProfileScreen';
 import WelcomeScreen from '../WelcomeScreen';
+import OrderScreen from '../source/screens/OrderScreen';
 
 
 import AuthScreen from '../source/screens/AuthScreen';
@@ -40,7 +41,8 @@ const MaidProfileNavigator = createStackNavigator({
 },{defaultNavigationOptions:defaultNavOptions})
 
 const ProfileNavigator = createStackNavigator({
-    Profile:ProfileScreen
+    Profile:ProfileScreen,
+    Order:OrderScreen
 },{defaultNavigationOptions:defaultNavOptions})
 
 
@@ -98,13 +100,25 @@ const MaidBottomTabNav = createMaterialBottomTabNavigator(maidTabScreenConfig,{
  const SideDrawer = createDrawerNavigator({
     FindMaid:{screen:BottomTabNav,
         navigationOptions:{
-            drawerLabel:'Book Maid'
+            drawerLabel:'Hire Maid'
         }},
      MaidSec:{screen:MaidBottomTabNav,
      navigationOptions:{
-         drawerLabel:'Maid Section'
+         drawerLabel:'Be A Maid'
      }}
 
+ },{
+    drawerBackgroundColor : 'rgba(0, 0, 0, 0)',
+    contentOptions:{
+        activeBackgroundColor:'#e2703a',
+        inactiveBackgroundColor:'#e3e3e3',
+        inactiveTintColor:'black',
+        activeTintColor:'white',
+        labelStyle:{
+            fontWeight:'bold',
+            fontSize:17
+        }
+    }
  })
 
 

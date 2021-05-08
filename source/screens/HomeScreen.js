@@ -58,15 +58,14 @@ const HomeScreen = props => {
     }
     if(Array.isArray(maid) && maid.length != 0){
         return(
-     
             <SafeAreaView>
                 <FlatList
                     data={maid}
                     key={(_,i)=>i.toString()}
                     renderItem={({item}) => {
-                        return(<View style={{width:Dimensions.get('window').width*0.9, backgroundColor:'white',borderRadius:10,alignSelf:'center',padding:8,marginVertical:10}}>
+                        return(<View style={{width:Dimensions.get('window').width*0.9, backgroundColor:'#eeb76b',borderRadius:10,alignSelf:'center',padding:8,marginVertical:10}}>
                         <Text style={{fontWeight:'bold', fontSize:20, marginVertical:8,alignSelf:"center"}}>{item.name}</Text>
-                        <Text numberOfLines={1}>{item.address}</Text>
+                        <Text numberOfLines={2}>{item.address}</Text>
                         <FlatList
                             style={{ margin:12,alignSelf:"center"}}
                             horizontal
@@ -74,13 +73,15 @@ const HomeScreen = props => {
                             data={item.work}
                             keyExtractor={(_,i)=>i.toString()}
                             renderItem={({item}) =>{
-                                return<View style={{backgroundColor:'purple', padding:8, borderRadius:8, width:150,}}>
-                                    <Text style={{color:'white',alignSelf:'center'}}>{item}</Text>
+                                return<View style={{backgroundColor:'#e2703a', padding:8,margin:5, borderRadius:8, width:Dimensions.get('window').width*0.19}}>
+                                    <Text style={{color:'white',alignSelf:'center',fontSize:15}}>{item}</Text>
                                 </View>
                             }}
                         />
                         <Text style={{fontWeight:'600', fontSize:24,alignSelf:"center"}}>Starting from <Text style={{fontWeight:'bold',fontSize:24}}>₹ {item.price}</Text> </Text>
-                        <Button color="#e2703a" onPress={()=>{setModalVisible(true);setMaidData(item);}}>Hire</Button>
+                        <Button 
+                        style={{alignSelf:'center',width:Dimensions.get('window').width*0.2,margin:4}} 
+                        color="#fa915f" mode="contained" onPress={()=>{setModalVisible(true);setMaidData(item);}}>Hire</Button>
                         </View>)
                     }}
                 />
