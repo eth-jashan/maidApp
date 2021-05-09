@@ -51,7 +51,7 @@ const Profile = props => {
     const revereGeoCodeResponse = async(latitude,longitude) =>{
         try{
             const response = await GoogleLocationApi.get(`geocode/json?latlng=${latitude},${longitude}&key=AIzaSyDsDKH-37DS6ZnGY_oIi7t5YE0oAAZ-V88`)
-           // console.log(response.data);
+            //console.log(response.data);
             const address =  response.data.results[0].formatted_address;
             //setLoc(JSON.stringify( response.data.results[0].geometry.location))
             const loc = JSON.stringify(response.data.results[0].address_components) ;

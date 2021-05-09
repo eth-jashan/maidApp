@@ -11,6 +11,7 @@ import {Button} from 'react-native-paper'
 //components
 import MaidList from '../component/maidList';
 import Hire from '../../components/Hire';
+import SearchBar from '../../source/component/SearchBar';
 
 //actions
 import * as manageActions from '../../store/action/ManageUser';
@@ -26,19 +27,25 @@ const HomeScreen = props => {
 
     const[modalVisible,setModalVisible] = useState(false);
     const[maidData,setMaidData] = useState();
-   
+    const[term,setTerm] = useState('');
+    
+    const[maid,setMaid] = useState([]);
+    const[isLoading,setIsLoading] = useState(false);
 
-    const loadMaid = useCallback(async()=>{
-            await dispatch(manageActions.fetchAllMaid())
-            
-     },[dispatch])
-
-     const maid = useSelector(state=>state.manage.allmaids);
-     console.log(maid);
-
+     
+    const Maid =  useSelector(state=>state.manage.allmaids);
+    
       useEffect(()=>{
         loadMaid()
     },[dispatch,loadMaid])
+
+    const loadMaid = useCallback(async()=>{
+        setIsLoading(true);
+            await dispatch(manageActions.fetchAllMaid())
+            setMaid(Maid);
+            
+        setIsLoading(false);
+     },[dispatch])
 
     useEffect(()=>{
         const willFocusSub = props.navigation.addListener('willFocus',loadMaid);
@@ -48,17 +55,50 @@ const HomeScreen = props => {
         }
    },[loadMaid])
 
-    if(Array.isArray(maid) && maid.length == 0){
-        return(
+
+
+
+   const searchByCity = (city) => {
+       
+       console.log('orginal : ',maid);
+       if(city===''){
+        setMaid(Maid);
+       }
+       else{
+           setIsLoading(true);
+        const filteredMaid = maid.filter(ele => ele.address.includes(city))
+        setMaid(filteredMaid);
+        
+        setIsLoading(false);
+        console.log('\n\n\nFILTER',filteredMaid);
+
+       }
+       
+      
+   };
+
+    if(!isLoading && Array.isArray(maid) && maid.length == 0){
+        return(<SafeAreaView>
             <View>
-                <Text>No maids found withing your area</Text>
+            <SearchBar term={term}
+            onTermChange={newTerm=>setTerm(newTerm)}
+            onTermSubmit={()=>setMaid(Maid),searchByCity(term)}/>
+              </View>
+            <View>
+                <Text style={{alignSelf:'center',justifyContent:'center',fontSize:17}}>No Maids Found</Text>
             </View>
+            </SafeAreaView>
             
         )
     }
-    if(Array.isArray(maid) && maid.length != 0){
+    if(!isLoading && Array.isArray(maid) && maid.length != 0){
         return(
             <SafeAreaView>
+                <View>
+            <SearchBar term={term}
+            onTermChange={newTerm=>setTerm(newTerm)}
+            onTermSubmit={()=>setMaid(Maid),searchByCity(term)}/>
+              </View>
                 <FlatList
                     data={maid}
                     key={(_,i)=>i.toString()}
