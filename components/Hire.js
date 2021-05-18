@@ -41,7 +41,7 @@ const Hire = (props) => {
             var i = chipId.indexOf(index);
             chipId.splice(i,1);
             chipWork.splice(i,1)
-            Styles.splice(i,1,'#cccccc')
+            
             chipBool.splice(i,1,false)
 
             
@@ -49,7 +49,7 @@ const Hire = (props) => {
         else{
             chipId.push(index)
             chipWork.push(kaam)
-            Styles.splice(index,1,'#e2703a')
+            
             chipBool.splice(index,1,true)
         }
     }
