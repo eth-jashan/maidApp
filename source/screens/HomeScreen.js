@@ -31,6 +31,8 @@ const HomeScreen = props => {
     
     const[maid,setMaid] = useState([]);
     const[isLoading,setIsLoading] = useState(false);
+    const[done,setDone] = useState(false);
+    
 
      
     const Maid =  useSelector(state=>state.manage.allmaids);
@@ -59,15 +61,20 @@ const HomeScreen = props => {
 
 
    const searchByCity = (city) => {
-       
        console.log('orginal : ',maid);
        if(city===''){
         setMaid(Maid);
+        setDone(false);
        }
        else{
            setIsLoading(true);
-        const filteredMaid = maid.filter(ele => ele.address.includes(city))
+           
+        let filteredMaid = maid.filter(ele => ele.address.includes(city))
+        console.log('filtering')
+        
         setMaid(filteredMaid);
+        setDone(true)
+
         
         setIsLoading(false);
         console.log('\n\n\nFILTER',filteredMaid);
@@ -80,9 +87,9 @@ const HomeScreen = props => {
     if(!isLoading && Array.isArray(maid) && maid.length == 0){
         return(<SafeAreaView>
             <View>
-            {/* <SearchBar term={term}
-            onTermChange={newTerm=>setTerm(newTerm)}
-            onTermSubmit={()=>setMaid(Maid),searchByCity(term)}/> */}
+            <SearchBar term={term}
+            onTermChange={newTerm=>{setTerm(newTerm);searchByCity(term)}}
+            onTermSubmit={()=>{setMaid(Maid);searchByCity(term)}}/>
               </View>
             <View>
                 <Text style={{alignSelf:'center',justifyContent:'center',fontSize:17}}>No Maids Found</Text>
@@ -93,14 +100,14 @@ const HomeScreen = props => {
     }
     if(!isLoading && Array.isArray(maid) && maid.length != 0){
         return(
-            <SafeAreaView>
+            <SafeAreaView style={{flex:1}}>
                 <View>
             <SearchBar term={term}
-            onTermChange={newTerm=>setTerm(newTerm)}
-            onTermSubmit={()=>setMaid(Maid)}/>
+            onTermChange={newTerm=>{setTerm(newTerm);searchByCity(term)}}
+            onTermSubmit={()=>{setMaid(Maid);searchByCity(term)}}/>
               </View>
                 <FlatList
-                    data={Maid}
+                    data={maid}
                     key={(_,i)=>i.toString()}
                     renderItem={({item}) => {
                         return(<View style={{width:Dimensions.get('window').width*0.9, backgroundColor:'#eeb76b',borderRadius:10,alignSelf:'center',padding:8,marginVertical:10}}>

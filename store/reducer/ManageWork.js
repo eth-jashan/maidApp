@@ -1,5 +1,5 @@
 import Work from "../../models/Work";
-import { HIRE_MAID } from "../action/ManageWork";
+import { FETCH_WORK, HIRE_MAID } from "../action/ManageWork";
 
 const initialState = {
     work:[]
@@ -24,6 +24,11 @@ export default (state = initialState,action) => {
             );  
             return{...state,
             work:state.work.concat(newWork)}
+        
+        case FETCH_WORK:
+            return{
+                work:action.work
+            }
 
     }
     return state;

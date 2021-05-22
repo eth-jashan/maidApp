@@ -1,6 +1,7 @@
 import Work from "../../models/Work";
 
 export const HIRE_MAID = 'HIRE_MAID';
+export const FETCH_WORK = 'FETCH_WORK';
 
 export const hireMaid = (maidId,name,phone,time,toTime,address,basePrice,chipWork,loc,nego, status) => {
     return async(dispatch,getState) =>{
@@ -40,29 +41,29 @@ export const hireMaid = (maidId,name,phone,time,toTime,address,basePrice,chipWor
 
 }
 
-export const statusHandler = (status) => {
+// export const statusHandler = (status) => {
 
-    await fetch('https://housekeeper-4f6d8-default-rtdb.firebaseio.com/work.json?auth=${token}',{
-        method:'PATCH',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-            status:status
-        })
-    })
+//     await fetch('https://housekeeper-4f6d8-default-rtdb.firebaseio.com/work.json?auth=${token}',{
+//         method:'PATCH',
+//         headers:{'Content-Type':'application/json'},
+//         body:JSON.stringify({
+//             status:status
+//         })
+//     })
 
-}
+// }
 
-export const negotitation = (nego) => {
+// export const negotitation = (nego) => {
 
-    await fetch('https://housekeeper-4f6d8-default-rtdb.firebaseio.com/work.json?auth=${token}',{
-        method:'PATCH',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-            nego:nego
-        })
-    })
+//     await fetch('https://housekeeper-4f6d8-default-rtdb.firebaseio.com/work.json?auth=${token}',{
+//         method:'PATCH',
+//         headers:{'Content-Type':'application/json'},
+//         body:JSON.stringify({
+//             nego:nego
+//         })
+//     })
 
-}
+// }
 
 export const fetchWork = () => {
 
@@ -77,7 +78,7 @@ export const fetchWork = () => {
         for(const key in resData){
             maidWork.push(new Work(key,resData[key].maidId, resData[key].userId, resData[key].name,resData[key].phone, resData[key].time, resData[key].toTime, resData[key].address,resData[key].basePrice,resData[key].chipWork,resData[key].loc,resData[key].nego,status, resData[key].status))
         }
-
+        dispatch({type:FETCH_WORK,work:maidWork.filter(maid => maid.maidId === userId)})
 
     }
 
