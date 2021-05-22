@@ -7,9 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 //actions
 import * as manageActions from '../../store/action/ManageUser';
+import * as manageWorkActions from '../../store/action/ManageWork';
 
 //component
 import Profile from '../../components/Profile';
+import { FlatList } from 'react-native-gesture-handler';
+import WorkCard from '../component/WorkCard';
 
 const MaidSecScreen = props => {
 
@@ -19,10 +22,13 @@ const MaidSecScreen = props => {
      const loadMaid = useCallback(async()=>{
          setIsLoading(true);
              await dispatch(manageActions.fetchMaid())
+             await dispatch(manageWorkActions.fetchMaidWork())
              setIsLoading(false);
       },[dispatch])
 
      const maid = useSelector(state=>state.manage.maids);
+     const orders =  useSelector(state=>state.work.work);
+    //  console.log(orders)
      
 
 
@@ -60,6 +66,20 @@ const MaidSecScreen = props => {
         <View style={{padding:15}}>
             <View style={styles.container}><Text style={styles.text}>Welcome Back <Text style={{color:'white'}}>{maid[0].name}</Text></Text></View>
              <View><Text style={styles.text}>Your Work:</Text></View>
+        </View>
+        <View>
+            <FlatList data={orders}
+                    key={(_,i)=>i.toString()}
+                    renderItem={({item}) => {
+                        return <View> 
+                             <WorkCard time={item.time} till={item.toTime} name={item.maidName} 
+                            address = {item.address} phone={item.phone} workArray={item.chipWork} 
+                            nego={item.nego} who = 'maid' userName={item.name} Id={item.id}
+                            price = {item.basePrice}/> 
+                            </View>
+                        
+                    }}/>  
+             
         </View>
         </SafeAreaView>
     )

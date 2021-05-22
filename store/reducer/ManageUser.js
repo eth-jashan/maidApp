@@ -1,6 +1,6 @@
 import Maid from '../../models/Maid';
 import User from '../../models/User';
-import { CREATE_MAID, CREATE_USER, FETCH_ALL_MAID, FETCH_MAID, FETCH_USER } from '../action/ManageUser';
+import { CREATE_MAID, CREATE_USER, FETCH_ALL_MAID, FETCH_MAID, FETCH_SPECIFIC, FETCH_USER } from '../action/ManageUser';
 
 const initialState = {
     users:[],

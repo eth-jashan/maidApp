@@ -71,7 +71,7 @@ const Hire = (props) => {
         toTime.trim().length > 0 && address.trim().length>0 &&chipWork.length!=0){
             
             setMaidId(props.maidData.id)
-            dispatch(workAction.hireMaid(props.maidData.id,name,phone,time,toTime,address,basePrice,chipWork,loc,"nego",props.maidData.name))
+            dispatch(workAction.hireMaid(props.maidData.ownerId,name,phone,time,toTime,address,basePrice,chipWork,loc,"nego",props.maidData.name,props.maidData.phone,props.maidData.address))
             
             console.log('dispatched')
             //console.log(maidId,name,phone,time,toTime,address,basePrice,chipWork,loc,"nego");

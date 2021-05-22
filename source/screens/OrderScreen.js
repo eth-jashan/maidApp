@@ -45,7 +45,10 @@ const OrderScreen = (props) => {
                     key={(_,i)=>i.toString()}
                     renderItem={({item}) => {
                         return <View> 
-                            <WorkCard time={item.time} till={item.toTime} name={item.maidName} address = {item.address} phone={item.phone} workArray={item.chipWork} nego={item.nego} /> 
+                            <WorkCard time={item.time} till={item.toTime} name={item.maidName} 
+                            address = {item.address} phone={item.phone} workArray={item.chipWork} 
+                            nego={item.nego} who = 'user' userName={item.name} Id={item.id} maidPhone ={item.maidPhone} maidAddress = {item.maidAddress}
+                            price = {item.basePrice} /> 
                             </View>
                         
                     }}/>  
