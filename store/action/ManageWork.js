@@ -3,7 +3,7 @@ import Work from "../../models/Work";
 export const HIRE_MAID = 'HIRE_MAID';
 export const FETCH_WORK = 'FETCH_WORK';
 
-export const hireMaid = (maidId,name,phone,time,toTime,address,basePrice,chipWork,loc,nego, status) => {
+export const hireMaid = (maidId,name,phone,time,toTime,address,basePrice,chipWork,loc,nego,maidName) => {
     return async(dispatch,getState) =>{
         const token = getState().auth.token;
         const userId = getState().auth.userId;
@@ -19,7 +19,7 @@ export const hireMaid = (maidId,name,phone,time,toTime,address,basePrice,chipWor
                 phone,time,
                 toTime,address,
                 basePrice,chipWork,
-                loc,nego,status
+                loc,nego,maidName
             })
         });
         const resData = await response.json();
@@ -34,7 +34,7 @@ export const hireMaid = (maidId,name,phone,time,toTime,address,basePrice,chipWor
                 phone,time,
                 toTime,address,
                 basePrice,chipWork,
-                loc,nego,status
+                loc,nego,maidName
             }
         })
     }
@@ -71,14 +71,14 @@ export const fetchWork = () => {
         const token = getState().auth.token;
         const userId = getState().auth.userId;
 
-        const response = await fetch('https://housekeeper-4f6d8-default-rtdb.firebaseio.com/work.json?auth=${token}')
-        const resData = await response.json()
+        const response = await fetch(`https://housekeeper-4f6d8-default-rtdb.firebaseio.com/work.json`);
+        const resData = await response.json();
 
-        const maidWork = []
+        const maidWork = [];
         for(const key in resData){
-            maidWork.push(new Work(key,resData[key].maidId, resData[key].userId, resData[key].name,resData[key].phone, resData[key].time, resData[key].toTime, resData[key].address,resData[key].basePrice,resData[key].chipWork,resData[key].loc,resData[key].nego,status, resData[key].status))
+            maidWork.push(new Work(key,resData[key].maidId,resData[key].userId,resData[key].name,resData[key].phone,resData[key].time,resData[key].toTime,resData[key].address,resData[key].basePrice,resData[key].chipWork,resData[key].loc,resData[key].nego,resData[key].maidName))
         }
-        dispatch({type:FETCH_WORK,work:maidWork.filter(maid => maid.maidId === userId)})
+        dispatch({type:FETCH_WORK,works:maidWork.filter(maid => maid.userId === userId)})
 
     }
 

@@ -20,14 +20,15 @@ export default (state = initialState,action) => {
                 action.work.basePrice,
                 action.work.chipWork,
                 action.work.loc,
-                action.work.nego
+                action.work.nego,
+                action.work.maidName
             );  
             return{...state,
             work:state.work.concat(newWork)}
         
         case FETCH_WORK:
             return{
-                work:action.work
+                work:action.works
             }
 
     }

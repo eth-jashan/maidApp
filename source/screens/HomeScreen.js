@@ -128,7 +128,7 @@ const HomeScreen = props => {
                         <Text style={{fontWeight:'600', fontSize:24,alignSelf:"center"}}>Starting from <Text style={{fontWeight:'bold',fontSize:24}}>₹ {item.price}</Text> </Text>
                         <Button 
                         style={{alignSelf:'center',width:Dimensions.get('window').width*0.2,margin:4}} 
-                        color="#fa915f" mode="contained" onPress={()=>{setModalVisible(true);setMaidData(item);}}>Hire</Button>
+                        color="#fa915f" mode="contained" onPress={()=>{setModalVisible(true);setMaidData(item);console.log(item)}}>Hire</Button>
                         </View>)
                     }}
                 />

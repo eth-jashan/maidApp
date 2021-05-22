@@ -1,5 +1,5 @@
 class Work{
-    constructor(id,maidId,userId,name,phone,time,toTime,address,basePrice,chipWork,loc,nego,status){
+    constructor(id,maidId,userId,name,phone,time,toTime,address,basePrice,chipWork,loc,nego,maidName){
         this.id= id;
         this.maidId = maidId;
         this.userId = userId;
@@ -10,10 +10,9 @@ class Work{
         this.address = address;
         this.basePrice = basePrice;
         this.chipWork = chipWork;
-        this.chipWork = chipWork;
         this.loc = loc;
         this.nego = nego;
-        this.status= status
+        this.maidName = maidName;
     }
 }
 export default Work;
