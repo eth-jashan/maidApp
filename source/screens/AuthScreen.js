@@ -33,7 +33,7 @@ const AuthScreen = props => {
 
     const authHandler = async(email,password) => {
         setLoad(true)
-        let action,secondAction;
+        let action;
         if(isSignUp){
             action=authActions.signup(email,password); 
         }
@@ -42,7 +42,7 @@ const AuthScreen = props => {
         }
         setError(null);
         try{
-            if(isSignUp){
+             if(isSignUp){
                 await dispatch(action);
                 await dispatch(manageActions.createUser(name));
                 props.navigation.navigate('Welcome')

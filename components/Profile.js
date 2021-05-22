@@ -51,7 +51,7 @@ const Profile = props => {
     const revereGeoCodeResponse = async(latitude,longitude) =>{
         try{
             const response = await GoogleLocationApi.get(`geocode/json?latlng=${latitude},${longitude}&key=AIzaSyDsDKH-37DS6ZnGY_oIi7t5YE0oAAZ-V88`)
-           // console.log(response.data);
+            //console.log(response.data);
             const address =  response.data.results[0].formatted_address;
             //setLoc(JSON.stringify( response.data.results[0].geometry.location))
             const loc = JSON.stringify(response.data.results[0].address_components) ;
@@ -175,7 +175,7 @@ const Profile = props => {
             <ScrollView keyboardShouldPersistTaps={true}>
             <View style={{width:Dimensions.get('window').width, alignSelf:'center'} }>
             <View style={{margin:10,justifyContent:'center',alignItems:'center'}}>
-            <Text style={{margin:30,color:'#e2703a',fontSize:25,fontWeight:'bold'}} >Maid Registration</Text>
+            <Text style={{margin:30,color:'#e2703a',fontSize:25,fontWeight:'bold',textDecorationLine:'underline'}} >Maid Registration</Text>
             <View>
                 <TextInput
                 mode='outlined'
@@ -320,8 +320,9 @@ const Profile = props => {
             <Modal animationType='fade' transparent={true} visible={modalVisible}>
                 <View style={{flex: 1,justifyContent: "center",alignItems: "center",marginTop: 22}}>
                     <View style={styles.modal}>
-                        
+                        <View style={{width:'100%'}}>
                         <RNPickerSelect
+                            
                         onValueChange={(value) => setWork(value)}
                         items={[
                          { label: 'House Cleaning', value: 'House Cleaning' },
@@ -330,10 +331,11 @@ const Profile = props => {
                               ]}
                               style={{ inputAndroid: { color: 'black' } }}
                         useNativeAndroidPickerStyle={true}
-                        fixAndroidTouchableBug={true}
+                        fixAndroidTouchableBug={false}
                         Icon={() => {
                             return <MaterialCommunityIcons name="broom" size={24} color="black" />;
                           }}/>
+                          </View>
                           <View style={{flexDirection:'column',justifyContent:'center'}} >
                           {work?<TouchableOpacity  style={styles.buttonDone}  onPress={addWork}>
                             <Text style={{fontWeight:'bold',fontSize:17,color:'#ffffff',textAlign:'center'}} >Done</Text>

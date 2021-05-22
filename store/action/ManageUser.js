@@ -1,9 +1,11 @@
 import Maid from '../../models/Maid';
+import User from '../../models/User';
 
 export const CREATE_USER = 'CREATE_USER';
 export const CREATE_MAID = 'CREATE_MAID';
 export const FETCH_MAID = 'FETCH_MAID';
 export const FETCH_ALL_MAID = 'FETCH_ALL_MAID';
+export const FETCH_USER = 'FETCH_USER';
 
 export const createUser = (name) => {
     return async(dispatch,getState) =>{
@@ -101,5 +103,22 @@ export const fetchAllMaid = () => {
                 resData[key].address))
         }
         dispatch({type:FETCH_ALL_MAID,maids:loadedMaids})
+    }
+}
+
+export const fetchUser = () => {
+    return async(dispatch,getState) => {
+        const userId = getState().auth.userId;
+      
+            const response = await fetch('https://housekeeper-4f6d8-default-rtdb.firebaseio.com/user.json');
+            
+            const resData = await response.json();
+            const loadedUser = [];
+
+            for(const key in resData){
+                loadedUser.push(new User(key,resData[key].ownerId,resData[key].name))
+            }
+            dispatch({type:FETCH_USER,user:loadedUser.filter(user => user.ownerId === userId)})
+        
     }
 }

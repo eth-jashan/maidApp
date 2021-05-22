@@ -1,0 +1,10 @@
+i made the hiring form,tomorrow im gonna make the hiring model and store action and reducer
+
+things left to do :-
+1)fetch work in maidSecScreen after accepting(share phone number to user only after getting accepted )
+2)show [name of user ] & order details in user profile screen   (order action and reducer)
+3)disappering the work card when maid wants to
+4)Filter homeScreen maid array with city
+
+5)(optional)deletion of user account
+6)(optional)show root from maid house to users house

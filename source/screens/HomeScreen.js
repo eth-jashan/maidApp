@@ -11,6 +11,7 @@ import {Button} from 'react-native-paper'
 //components
 import MaidList from '../component/maidList';
 import Hire from '../../components/Hire';
+import SearchBar from '../../source/component/SearchBar';
 
 //actions
 import * as manageActions from '../../store/action/ManageUser';
@@ -26,19 +27,25 @@ const HomeScreen = props => {
 
     const[modalVisible,setModalVisible] = useState(false);
     const[maidData,setMaidData] = useState();
-   
+    const[term,setTerm] = useState('');
+    
+    const[maid,setMaid] = useState([]);
+    const[isLoading,setIsLoading] = useState(false);
 
-    const loadMaid = useCallback(async()=>{
-            await dispatch(manageActions.fetchAllMaid())
-            
-     },[dispatch])
-
-     const maid = useSelector(state=>state.manage.allmaids);
-     console.log(maid);
-
-      useEffect(()=>{
+     
+    const Maid =  useSelector(state=>state.manage.allmaids);
+    
+    useEffect(()=>{
         loadMaid()
     },[dispatch,loadMaid])
+
+    const loadMaid = useCallback(async()=>{
+        setIsLoading(true);
+            await dispatch(manageActions.fetchAllMaid())
+            setMaid(Maid);
+            
+        setIsLoading(false);
+     },[dispatch])
 
     useEffect(()=>{
         const willFocusSub = props.navigation.addListener('willFocus',loadMaid);
@@ -48,25 +55,57 @@ const HomeScreen = props => {
         }
    },[loadMaid])
 
-    if(Array.isArray(maid) && maid.length == 0){
-        return(
+
+
+
+   const searchByCity = (city) => {
+       
+       console.log('orginal : ',maid);
+       if(city===''){
+        setMaid(Maid);
+       }
+       else{
+           setIsLoading(true);
+        const filteredMaid = maid.filter(ele => ele.address.includes(city))
+        setMaid(filteredMaid);
+        
+        setIsLoading(false);
+        console.log('\n\n\nFILTER',filteredMaid);
+
+       }
+       
+      
+   };
+
+    if(!isLoading && Array.isArray(maid) && maid.length == 0){
+        return(<SafeAreaView>
             <View>
-                <Text>No maids found withing your area</Text>
+            {/* <SearchBar term={term}
+            onTermChange={newTerm=>setTerm(newTerm)}
+            onTermSubmit={()=>setMaid(Maid),searchByCity(term)}/> */}
+              </View>
+            <View>
+                <Text style={{alignSelf:'center',justifyContent:'center',fontSize:17}}>No Maids Found</Text>
             </View>
+            </SafeAreaView>
             
         )
     }
-    if(Array.isArray(maid) && maid.length != 0){
+    if(!isLoading && Array.isArray(maid) && maid.length != 0){
         return(
-     
             <SafeAreaView>
+                <View>
+            <SearchBar term={term}
+            onTermChange={newTerm=>setTerm(newTerm)}
+            onTermSubmit={()=>setMaid(Maid)}/>
+              </View>
                 <FlatList
-                    data={maid}
+                    data={Maid}
                     key={(_,i)=>i.toString()}
                     renderItem={({item}) => {
-                        return(<View style={{width:Dimensions.get('window').width*0.9, backgroundColor:'white',borderRadius:10,alignSelf:'center',padding:8,marginVertical:10}}>
+                        return(<View style={{width:Dimensions.get('window').width*0.9, backgroundColor:'#eeb76b',borderRadius:10,alignSelf:'center',padding:8,marginVertical:10}}>
                         <Text style={{fontWeight:'bold', fontSize:20, marginVertical:8,alignSelf:"center"}}>{item.name}</Text>
-                        <Text numberOfLines={1}>{item.address}</Text>
+                        <Text numberOfLines={2}>{item.address}</Text>
                         <FlatList
                             style={{ margin:12,alignSelf:"center"}}
                             horizontal
@@ -74,20 +113,22 @@ const HomeScreen = props => {
                             data={item.work}
                             keyExtractor={(_,i)=>i.toString()}
                             renderItem={({item}) =>{
-                                return<View style={{backgroundColor:'purple', padding:8, borderRadius:8, width:150,}}>
-                                    <Text style={{color:'white',alignSelf:'center'}}>{item}</Text>
+                                return<View style={{backgroundColor:'#e2703a', padding:8,margin:5, borderRadius:8, width:Dimensions.get('window').width*0.19}}>
+                                    <Text style={{color:'white',alignSelf:'center',fontSize:15}}>{item}</Text>
                                 </View>
                             }}
                         />
                         <Text style={{fontWeight:'600', fontSize:24,alignSelf:"center"}}>Starting from <Text style={{fontWeight:'bold',fontSize:24}}>₹ {item.price}</Text> </Text>
-                        <Button color="#e2703a" onPress={()=>{setModalVisible(true);setMaidData(item);}}>Hire</Button>
+                        <Button 
+                        style={{alignSelf:'center',width:Dimensions.get('window').width*0.2,margin:4}} 
+                        color="#fa915f" mode="contained" onPress={()=>{setModalVisible(true);setMaidData(item);}}>Hire</Button>
                         </View>)
                     }}
                 />
                 <Modal animationType='slide' transparent={false} visible={modalVisible}>
                     <View>
-                    <Hire maidData = {maidData}/>
-                    <Button mode='contained' color="#e2703a" onPress={()=>{setModalVisible(false)}}>Cancel</Button>
+                    <Hire maidData = {maidData} Submitted={()=>{setModalVisible(false)}}/>
+                    <Button mode='contained' color="#dc143c" onPress={()=>{setModalVisible(false)}}>Cancel</Button>
                     </View>
                     
                 </Modal>
