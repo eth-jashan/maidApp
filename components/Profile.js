@@ -97,8 +97,11 @@ const Profile = props => {
 
     const addWork = () => {
         if(workArray.includes(work)){
-            Alert.alert('Already Exists','The Work is already chosen',[{text:'Okay',onPress:()=>setModalVisible(false)}])
-        }  
+            Alert.alert('Already Exists','The Work is already chosen',[{text:'Okay',onPress:()=>{setModalVisible(false);setWork(null)}}])
+        }
+        else if(workArray.length === 4){
+            Alert.alert('Exceeded Limit','Sorry, you cannot apply for more than 4 works',[{text:'Okay',onPress:()=>{setModalVisible(false);setWork(null)}}])
+        }
         else{
             setWorkArray(currentWork =>[...currentWork,work]);
             console.log(workArray);
@@ -250,7 +253,7 @@ const Profile = props => {
             </View>
             
             </View>
-            <View style={{alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
+            <View style={{alignItems:'center',justifyContent:'center',flexDirection:'row',width:'100%'}}>
    {/* ARRAY OF WORK */}
                 {workArray.map((kaam) => <View key={workArray.indexOf(kaam)} style={{borderWidth:1,marginHorizontal:5,padding:5,borderRadius:10}}>
                     <Text  style={{fontWeight:'bold',margin:2}}>{kaam}</Text>
@@ -328,6 +331,9 @@ const Profile = props => {
                          { label: 'House Cleaning', value: 'House Cleaning' },
                          { label: 'Vehicle Wash', value: 'Vehicle Wash' },
                          { label: 'Cooking', value: 'Cooking' },
+                         { label: 'Gardening', value: 'Gardening' },
+                         { label: 'Pet Sitting', value: 'Pet Sitting' },
+                         { label: 'Baby Sittin', value: 'Baby Sitting' }
                               ]}
                               style={{ inputAndroid: { color: 'black' } }}
                         useNativeAndroidPickerStyle={true}

@@ -30,17 +30,16 @@ const Hire = (props) => {
     const[toTime,setToTime] = useState('');
     const[address,setAdress] = useState('');
     const[basePrice,setBasePrice] = useState('');
-    const[chipWork,setChipWork] = useState([]); 
+    
     const[loc,setLoc] = useState('');
     const[maidId,setMaidId] = useState('');
 
     const[clockVisible,setClockVisible] = useState(false);
     const[Visible,setVisible] = useState(false);
 
-    const[Styles,setStyle] = useState(['#cccccc','#cccccc','#cccccc']);
-    const[chipId,setChipId] = useState([]);
-    const[chipBool,setChipBool] = useState([false,false,false]);
-    const[done,setDone] = useState(0);
+    const[chipWork,setChipWork] = useState([]); 
+
+    const[done,setDone] = useState(false);
 
     const[isLocated,setIsLocated] = useState(false);
 
@@ -57,8 +56,8 @@ const Hire = (props) => {
 
     const reset = () => {
         setName('');setAdress('');setPhone('');setTime('');setToTime('');setBasePrice('');setIsLocated(false);
-        setStyle(['#cccccc','#cccccc','#cccccc']);setChipId([]);setChipWork([]);
-        setChipBool([false,false,false]);setDone(0);setLoader(false);setLoc('');setGloading(false);
+        setChipWork([]);
+        setDone(false);setLoader(false);setLoc('');setGloading(false);
         setClockVisible(false);setVisible(false);setClockVisible(false);setMaidId('');
     }
 
@@ -85,23 +84,15 @@ const Hire = (props) => {
 
     
     const chipCheck =(index,kaam) => {
-        if(chipId.includes(index)){
-            var i = chipId.indexOf(index);
-            chipId.splice(i,1);
+        if(chipWork.includes(kaam)){
+            var i = chipWork.indexOf(kaam);
             chipWork.splice(i,1)
-            Styles.splice(i,1,'#cccccc')
-            
-            chipBool.splice(i,1,false)
 
-            
         }
         else{
-            chipId.push(index)
             chipWork.push(kaam)
-            Styles.splice(i,1,'orange')
-            chipBool.splice(index,1,true)
         }
-        setDone(done+1);
+        setDone(done => !done);
     }
 
     const showTimePicker = () =>{
@@ -209,15 +200,14 @@ const Hire = (props) => {
                 theme={{colors:{primary:"#ba8f54",underlineColor:'transparent'}}}
                 label='Enter Hiring Salary'
                 />
-                <Text>Select From Available Services:</Text>
+                 <Text>Select From Available Services:</Text>
+               
                 <View style={{flexDirection:'row'}}>
                 {props.maidData.work.map((kaam,index)=>       
                     <View style={{margin:1}}>
-                    <Chip  icon='broom' textStyle={{ color:'white', fontSize: 15 }} 
-                    style={{ backgroundColor:Styles[index] }}  
-                    onPress={() =>{chipCheck(index,kaam);console.log(chipId);
-                    console.log(Styles);console.log(chipWork);console.log(Styles[index]);}}>{kaam}</Chip>
-                    
+                    <Chip textStyle={{ color:'white', fontSize: 14 }} 
+                    style={chipWork.includes(kaam)?{backgroundColor:'orange'}:{backgroundColor:'gray'}}  
+                    onPress={() =>{chipCheck(index,kaam);console.log(chipWork); }}>{kaam}</Chip>
                     </View>)}
                 </View>
 

@@ -86,7 +86,7 @@ const HomeScreen = props => {
 
     if(!isLoading && Array.isArray(maid) && maid.length == 0){
         return(<SafeAreaView>
-            <View>
+            <View style={{padding:5}}>
             <SearchBar term={term}
             onTermChange={newTerm=>{setTerm(newTerm);searchByCity(term)}}
             onTermSubmit={()=>{setMaid(Maid);searchByCity(term)}}/>
@@ -101,7 +101,7 @@ const HomeScreen = props => {
     if(!isLoading && Array.isArray(maid) && maid.length != 0){
         return(
             <SafeAreaView style={{flex:1}}>
-                <View>
+                <View style={{padding:5}}>
             <SearchBar term={term}
             onTermChange={newTerm=>{setTerm(newTerm);searchByCity(term)}}
             onTermSubmit={()=>{setMaid(Maid);searchByCity(term)}}/>
@@ -110,9 +110,10 @@ const HomeScreen = props => {
                     data={maid}
                     key={(_,i)=>i.toString()}
                     renderItem={({item}) => {
-                        return(<View style={{width:Dimensions.get('window').width*0.9, backgroundColor:'#eeb76b',borderRadius:10,alignSelf:'center',padding:8,marginVertical:10}}>
-                        <Text style={{fontWeight:'bold', fontSize:20, marginVertical:8,alignSelf:"center"}}>{item.name}</Text>
-                        <Text numberOfLines={2}>{item.address}</Text>
+                        return(<View style={{width:Dimensions.get('window').width*0.9,elevation:6, backgroundColor:'#fff8f5',borderRadius:20,alignSelf:'center',padding:8,marginVertical:10,borderWidth:2.2,borderColor:'#eeb76b'}}>
+                        <Text style={{fontWeight:'bold', fontSize:21, marginVertical:8,alignSelf:"center"}}>{item.name}</Text>
+                      <Text><Text><Text  style={{alignSelf:'center',fontSize:15,fontWeight:'bold'}} numberOfLines={2}>Address » </Text></Text><Text  style={{alignSelf:'center',fontSize:15}} numberOfLines={2}>{item.address}</Text></Text>  
+                       
                         <FlatList
                             style={{ margin:12,alignSelf:"center"}}
                             horizontal
@@ -120,12 +121,14 @@ const HomeScreen = props => {
                             data={item.work}
                             keyExtractor={(_,i)=>i.toString()}
                             renderItem={({item}) =>{
-                                return<View style={{backgroundColor:'#e2703a', padding:8,margin:5, borderRadius:8, width:Dimensions.get('window').width*0.19}}>
-                                    <Text style={{color:'white',alignSelf:'center',fontSize:15}}>{item}</Text>
+                                return<View style={{backgroundColor:'#e2703a',margin:5, borderRadius:8,padding:10}}>
+                                    <Text style={{color:'white',alignSelf:'center',fontSize:15,fontWeight:'bold'}}>{item}</Text>
                                 </View>
                             }}
                         />
-                        <Text style={{fontWeight:'600', fontSize:24,alignSelf:"center"}}>Starting from <Text style={{fontWeight:'bold',fontSize:24}}>₹ {item.price}</Text> </Text>
+                        <Text style={{alignSelf:'center',fontSize:17,fontStyle:'italic'}} ><Text style={{alignSelf:'center',fontSize:17,fontStyle:'italic',fontWeight:'bold'}}>From: </Text><Text style={{alignSelf:'center',fontSize:17,fontStyle:'italic'}}><Text>{item.from}</Text><Text style={{alignSelf:'center',fontSize:17,fontStyle:'italic',fontWeight:'bold'}}> Till: </Text> <Text>{item.till} </Text></Text></Text>
+                         
+                        <Text style={{fontWeight:'600', fontSize:24,alignSelf:"center",fontStyle:'italic'}}>Starting from <Text style={{fontWeight:'bold',fontSize:24}}>₹ {item.price}</Text> </Text>
                         <Button 
                         style={{alignSelf:'center',width:Dimensions.get('window').width*0.2,margin:4}} 
                         color="#fa915f" mode="contained" onPress={()=>{setModalVisible(true);setMaidData(item);console.log(item)}}>Hire</Button>

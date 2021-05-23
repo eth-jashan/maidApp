@@ -15,12 +15,12 @@ const WorkCard = (props) => {
     const dispatch = useDispatch();
 
     return(
-        <View style={{width:Dimensions.get('window').width*0.9, alignSelf:'center',borderRadius:15, backgroundColor:props.nego === 'nego'?'#f0af29':props.nego ==='accept'?'#009efd':'red', padding:15, marginVertical:10,elevation:5}}>
+        <View style={{width:Dimensions.get('window').width*0.9, alignSelf:'center',borderRadius:15, backgroundColor:props.nego === 'nego'?'#f0af29':props.nego ==='accept'?'#00cc00':'#fa2a2a', padding:15, marginVertical:10,elevation:5}}>
               {props.who === 'maid'?<View>
               <Text style={{alignSelf:'center',color:'white',fontWeight:'bold',fontSize:24}}>{props.userName} </Text>
               </View>
               :
-              <Text style={{alignSelf:'center',color:'white',fontWeight:'bold',fontSize:18}}>{props.name}</Text>}
+              <Text style={{alignSelf:'center',color:'white',fontWeight:'bold',fontSize:24}}>{props.name}</Text>}
             {props.nego ==='accept'?<View style={{backgroundColor:'white',padding:5,borderWidth:1,borderColor:'white',borderRadius:10,margin:Dimensions.get('window').height*0.01}}>
             {props.who === 'user'?<Text>{props.maidPhone}</Text>:<Text>{props.phone}</Text>}
           
@@ -29,7 +29,7 @@ const WorkCard = (props) => {
             
             <View style={{justifyContent:'center',alignItems:'center'}}>
 
-            <Text style={{alignSelf:'center',color:'white',fontSize:16}}>From: {props.time} Till: {props.till}</Text>
+            <Text style={{alignSelf:'center',color:'white',fontSize:16,fontWeight:'700'}}>From: {props.time} Till: {props.till}</Text>
             
             <FlatList style={{margin:10}}
              data={props.workArray}
