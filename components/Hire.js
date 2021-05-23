@@ -74,6 +74,7 @@ const Hire = (props) => {
             
             console.log('dispatched')
             //console.log(maidId,name,phone,time,toTime,address,basePrice,chipWork,loc,"nego");
+            props.OnSubmitted(false);
             
         }
         else{
@@ -206,7 +207,7 @@ const Hire = (props) => {
                 {props.maidData.work.map((kaam,index)=>       
                     <View style={{margin:1}}>
                     <Chip textStyle={{ color:'white', fontSize: 14 }} 
-                    style={chipWork.includes(kaam)?{backgroundColor:'orange'}:{backgroundColor:'gray'}}  
+                    style={chipWork.includes(kaam)?{backgroundColor:'#e2703a'}:{backgroundColor:'gray'}}  
                     onPress={() =>{chipCheck(index,kaam);console.log(chipWork); }}>{kaam}</Chip>
                     </View>)}
                 </View>

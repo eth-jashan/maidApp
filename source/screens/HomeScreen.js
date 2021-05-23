@@ -57,6 +57,11 @@ const HomeScreen = props => {
         }
    },[loadMaid])
 
+   const modalHandler = (modalStatus) => {
+       setModalVisible(modalStatus);
+
+   };
+
 
 
 
@@ -137,7 +142,7 @@ const HomeScreen = props => {
                 />
                 <Modal animationType='slide' transparent={false} visible={modalVisible}>
                     <View>
-                    <Hire maidData = {maidData} Submitted={()=>{setModalVisible(false)}}/>
+                    <Hire maidData = {maidData} OnSubmitted={modalHandler}/>
                     <Button mode='contained' color="#dc143c" onPress={()=>{setModalVisible(false)}}>Cancel</Button>
                     </View>
                     
