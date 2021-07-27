@@ -80,7 +80,7 @@ const AuthScreen = props => {
     return(
         <View style={{justifyContent:'center',alignItems:'center',flex:1}}>
             <ImageBackground style={{flex:1,justifyContent:'center',alignItems:'center',width:'100%'}} source={require('../../assets/robert.jpg')}>
-            <View style={{alignItems:'center',elevation:5,borderRadius:15,justifyContent:'center',width:'95%',padding:5,backgroundColor:'white'}}>
+            <View style={{alignItems:'center',elevation:5,borderRadius:15,justifyContent:'center',width:'95%',padding:5,backgroundColor:'blue);'}}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>House Keeper</Text>  
             </View>
